@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><head><link rel=manifest href=/manifest.webmanifest><meta name=theme-color content=#0b1020><meta charset=utf-8><title>PBL — Pixel Basketball League</title>
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>PBL — Pixel Basketball League</title>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name=theme-color content="#0d1020">
 <link rel=manifest href="/manifest.webmanifest"><link rel=icon href="/icon.svg"><link rel=apple-touch-icon href="/icon.svg">
@@ -9,7 +9,7 @@
 <style>
 :root{--bg:#0d1020;--pn:#171d36;--ln:#34406b;--tx:#e8edff;--ac:#ffb000;--gd:#52e07a;--rd:#ff5d5d;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 *{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 ui-monospace,Menlo,Consolas,monospace;image-rendering:pixelated}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:calc(16px*var(--fs,1));line-height:1.5;image-rendering:pixelated}
 h1,h2,h3,button,.px{font-family:'Press Start 2P',ui-monospace,monospace;font-weight:400}
 h1{font-size:28px;color:var(--ac);text-shadow:3px 3px #000;margin:.4em 0}h2{font-size:19px;margin:.6em 0}h3{font-size:14px;color:var(--ac);margin:1.2em 0 .5em}
 button,select,input{font:inherit;color:var(--tx);background:var(--pn);border:3px solid var(--ln);padding:10px 13px;border-radius:0;cursor:pointer}
@@ -22,7 +22,7 @@ a{color:var(--ac);cursor:pointer;text-decoration:none}@media(hover:hover){a:hove
 nav{display:flex;flex-direction:column;gap:5px;padding:8px;background:#080a16;border-right:3px solid var(--ln);position:sticky;top:104px}nav button{text-align:left}
 main{padding:14px 14px 110px;max-width:1250px;width:100%;margin:auto}
 #act{position:fixed;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:#080a16;border-top:3px solid var(--ln);z-index:6}
-@media(max-width:760px){#lay{grid-template-columns:1fr}nav{flex-direction:row;flex-wrap:wrap;position:static;border-right:0;border-bottom:3px solid var(--ln)}}
+
 nav button.on{background:var(--ac);color:#000}
 .pn{background:var(--pn);border:3px solid var(--ln);padding:10px;box-shadow:4px 4px #000}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 .bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.w{overflow-x:auto}
@@ -36,23 +36,17 @@ canvas{width:100%;image-rendering:pixelated;border:3px solid #000;background:#00
 .sb{display:flex;justify-content:space-between;font:16px 'Press Start 2P';padding:10px;background:#000;color:var(--ac)}
 .msg{border-left:4px solid var(--ac);padding:4px 8px;margin:4px 0;background:#10152b}.bx{height:26px}
 .bar2{display:inline-block;height:8px;background:var(--ac);vertical-align:middle}
-.cv{display:grid;grid-template-columns:2fr 1fr;gap:10px}@media(max-width:760px){.cv{grid-template-columns:1fr}}
+.cv{display:grid;grid-template-columns:2fr 1fr;gap:10px}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}button,select,input,a{-webkit-tap-highlight-color:transparent}
 .warn{background:#3a2a00;border:3px solid var(--ac);padding:8px 10px;margin:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.warn span{flex:1 1 200px}
-@media(max-width:760px){
-body{font-size:15px}h1{font-size:20px}h2{font-size:15px}h3{font-size:12px}
-button,select,input{min-height:44px}button{font-size:10px;padding:8px 10px;line-height:1.3}input{max-width:100%}
-#hud{flex-wrap:nowrap;overflow-x:auto;gap:4px;padding:6px;-webkit-overflow-scrolling:touch}#hud .s{flex:0 0 76px;padding:4px}#hud small{font-size:8px}#hud b{font-size:12px}
-nav{flex-wrap:nowrap;overflow-x:auto;gap:6px;padding:6px 8px;-webkit-overflow-scrolling:touch}nav button{flex:0 0 auto;white-space:nowrap}
-#lay{grid-template-columns:minmax(0,1fr)}main{min-width:0;padding:10px 10px 150px}
-#act{display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:6px;padding-left:calc(8px + env(safe-area-inset-left,0px));padding-right:calc(8px + env(safe-area-inset-right,0px))}#act button{text-align:center;padding:6px 4px;font-size:9px}
-#ts{left:10px;right:10px;bottom:calc(130px + env(safe-area-inset-bottom,0px))}#ts div{max-width:none}
-table{font-size:13px}th,td{padding:6px 7px}.sb{font-size:11px;padding:8px 6px}
-.bar{gap:8px}.g3{grid-template-columns:1fr}#md{padding:10px}
-}
+
 
 .mb{display:grid;gap:8px}.mi{display:grid;gap:4px;padding:10px 12px;background:#1a1f3a;border:3px solid #34406e;box-shadow:3px 3px #000;cursor:pointer}
 .mi.u{border-color:var(--ac)}.mi small{color:#8f9bc8;font-size:10px}.bd{display:inline-block;min-width:16px;padding:1px 4px;margin-left:6px;background:#e5322d;color:#fff;font-size:10px}
+
+.br{display:flex;gap:12px;min-width:1000px;align-items:stretch}.bc{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:8px;min-width:130px}.bc h4{margin:0 0 4px;font:9px 'Press Start 2P',monospace;color:var(--ac)}
+.sr{background:var(--pn);border:3px solid var(--ln);padding:4px 6px;font-size:13px}.sr div{display:flex;justify-content:space-between;gap:8px}.sr .wn{color:var(--gd)}.sr .me{background:#1c2547}
+body.mob #app{max-width:520px;margin:0 auto}
 </style></head><body><div id=app></div><div id=md onclick="if(event.target==this||event.target.parentNode==this)this.style.display='none'"></div><div id=ts></div>
 <script>
 /* TEAM LOGOS: edit ONLY here, in the code. Put an image URL or data URI between the quotes for each team. Empty = colored placeholder. Players are drawn by the game.
@@ -75,7 +69,7 @@ const RL={HC:'Head Coach',AC:'Assistant Coach',OC:'Offensive Coach',DC:'Defensiv
 const SH=[8,5,2,-4,-7,-10,-12,-14,-17,-20,-22,-24],W=[.2,.16,.13,.1,.09,.07,.06,.05,.04,.03,.04,.03],MW=[34,32,30,28,26,20,16,12,8,4];
 const CAP=170,TAX=200,TRN={Balanced:[],Offense:['three','mr','lay'],Defense:['pd','id','stl'],Physical:['spd','str','vert','sta']};
 const AL=[['fw','First Win','Win a game'],['ft','First Trade','Complete a trade'],['fc','First Championship','Win the title'],['dy','Dynasty','Win 3 championships'],['pm','Perfect Month','Win 7 straight games'],['bs','Best Record','Finish with the league\'s best record'],['ss','Superstar Signing','Acquire a Superstar'],['xs','XStar Acquisition','Acquire an XStar'],['rc','Rebuild Complete','Raise team OVR by 8'],['pc','Playoff Comeback','Win a series after trailing 1-3'],['w10','10 Consecutive Wins','Win 10 in a row'],['w100','100 Career Wins','Win 100 games'],['rp','Championship Repeat','Win back-to-back titles']];
-let G=null,UI={v:'dash',f:{},tt:0,mine:[],theirs:[],sk:'ovr',tsk:'w',k:0,slot:1,menu:'main'};
+let BULK=0,G=null,UI={v:'dash',f:{},tt:0,mine:[],theirs:[],sk:'ovr',tsk:'w',k:0,slot:1,menu:'main',mpk:[],tpk:[]};
 const z=()=>({g:0,min:0,pts:0,reb:0,ast:0,stl:0,blk:0,fgm:0,fga:0,tpm:0,tpa:0,ftm:0,fta:0,to:0});
 const sal=o=>+(0.8+Math.pow(Math.max(0,o-50)/48,2.4)*38).toFixed(1),tov=a=>[...a].sort((x,y)=>y-x).reduce((s,v,i)=>s+v*(W[i]||0),0);
 /* TEAM COLORS [primary, secondary, optional third], in the same order as the TM team list. Primary = jersey, secondary = shorts, third = jersey stripe. */
@@ -87,7 +81,7 @@ p.wt=Math.round(p.ht*2.6-30+I(-10,15));p.sal=sal(o);return p}
 const setBo=p=>p.bo=p.star?[0,1].map(()=>({k:P(BK),v:+(p.star==2?R(5,10):R(2,5)).toFixed(1)})):[];
 const mkC=rich=>{const o=I(45,rich?84:74);return{n:P(FN)+' '+P(LN),age:I(34,64),ex:I(1,25),ovr:o,sal:+(0.5+(o-40)/10*.9).toFixed(1),sp:P(['Offense','Defense','Development','Chemistry']),yrs:I(1,4)}};
 function mkSch(){G.sch=[];for(let r=0;r<62;r++){const a=[...Array(G.T.length).keys()].sort(()=>Math.random()-.5),g=[];for(let i=0;i<G.T.length;i+=2)g.push([a[i],a[i+1]]);G.sch.push(g)}}
-function newG(me,diff){G={me,diff,season:2026,rd:0,nid:1,P:[],T:[],msgs:[],ach:{},k:{w:0,tr:0,ch:0,mx:0,r0:0},po:null,hist:[],tr:'Balanced',sch:[],cp:[]};
+function newG(me,diff){G={me,diff,season:2026,rd:0,nid:1,P:[],T:[],msgs:[],ach:{},k:{w:0,tr:0,ch:0,mx:0,r0:0},po:null,hist:[],tr:'Balanced',sch:[],cp:[],gd:0,tq:[],rj:{},pk:[],npk:1};
 const rk=TM.map((t,i)=>i).sort((a,b)=>TM[b][1]-TM[a][1]);
 TM.forEach(([n,o],i)=>{const rich=rk.indexOf(i)<10,T={id:i,n,o0:o,rich,mk:+(rich?R(1.2,1.5):R(.8,1.1)).toFixed(2),st:P(['Contender','Rebuilding','Youth','Win-now','Frugal']),w:0,l:0,pf:0,pa:0,sk:0,rs:[],sf:{},ord:[],rev:0,ex:0};
 Object.keys(RL).forEach(r=>T.sf[r]=mkC(rich));G.T.push(T);
@@ -96,7 +90,7 @@ for(let it=0;it<80;it++){const d=o-tov(ov);if(Math.abs(d)<.35)break;ov=ov.map(v=
 ov.sort((a,b)=>b-a).forEach((v,j)=>{const p=mkP(v,j<3?I(23,32):I(20,35));p.tid=i;if(o>=78&&j<3&&v>=88)p.star=1;if(o>=88&&j==0&&v>=95)p.star=2;setBo(p);G.P.push(p)})});
 for(let i=0;i<34;i++){const p=mkP(i<4?I(68,75):I(44,66),I(21,34));G.P.push(p)}
 for(let i=0;i<14;i++){const r=P(Object.keys(RL)),c=mkC(0);c.r=r;G.cp.push(c)}
-G.T.forEach(T=>{if(Math.random()<.8)T.sp={n:P(SPN),p:+R(2,6).toFixed(1),y:2}});G.k.o0=to(me);mkSch();syncOrd()}
+G.T.forEach(T=>{if(Math.random()<.8)T.sp={n:P(SPN),p:+R(2,6).toFixed(1),y:2}});G.k.o0=to(me);mkSch();syncOrd();for(let y=G.season;y<G.season+3;y++)addPicks(y);startDraft();UI.v='draft'}
 const mine=()=>G.P.filter(p=>p.tid==G.me),tp=t=>G.P.filter(p=>p.tid==t),to=t=>Math.round(tov(tp(t).map(p=>p.ovr))),pay=t=>+tp(t).reduce((s,p)=>s+p.sal,0).toFixed(1);
 const cap=T=>Math.round(CAP*(T.rich?1.25:1)),rank=id=>G.T.map(t=>[t.id,to(t.id)]).sort((a,b)=>b[1]-a[1]).findIndex(x=>x[0]==id)+1;
 function syncOrd(){const T=G.T[G.me],ps=mine().sort((a,b)=>b.ovr-a.ovr),ids=ps.map(p=>p.id);T.ord=T.ord.filter(i=>ids.includes(i));ids.forEach(i=>{if(!T.ord.includes(i))T.ord.push(i)})}
@@ -142,33 +136,66 @@ H.rs.push([a,x,y,1]);A.rs.push([h,y,x,0]);H.rs=H.rs.slice(-10);A.rs=A.rs.slice(-
 r.S.forEach(s=>s.bx.forEach(b=>{if(b.m<=0)return;const q=b.p.st;q.g++;{const H=b.p.hi=b.p.hi||{};['pts','reb','ast','stl','blk'].forEach(k=>H[k]=Math.max(H[k]||0,b[k]))}q.min+=b.m;['pts','reb','ast','stl','blk','fgm','fga','tpm','tpa','ftm','fta','to'].forEach(k=>q[k]+=b[k]);if(b.m>12&&Math.random()<.012){b.p.inj=I(2,25);if(b.p.tid==G.me)toast(b.p.n+' is injured ('+b.p.inj+' games)')}}));
 if(h==G.me||a==G.me){const T=G.T[G.me],w=(hw?h:a)==G.me;if(w)G.k.w++;G.k.mx=Math.max(G.k.mx,T.sk);{const K=G.k,mi=h==G.me?x:y,op=h==G.me?y:x,me=r.S[h==G.me?0:1];if(w){if(mi-op>=30)K.bl=(K.bl||0)+1;if(mi-op<=3)K.cl=(K.cl||0)+1;if(r.ot)K.ot=(K.ot||0)+1;if(op<85)K.dn=(K.dn||0)+1}if(mi>=130)K.hi=1;if(me.bx.some(b=>b.pts>=40))K.p40=1;if(me.bx.some(b=>b.pts>=50))K.p50=1;K.td=(K.td||0)+me.bx.filter(b=>b.pts>=10&&b.reb>=10&&b.ast>=10).length;if(me.bx.reduce((q,b)=>q+b.tpm,0)>=15)K.t15=1}
 const ps=mine(),rr=[...ps].sort((p,q)=>q.ovr-p.ovr),m=G.diff==2?1.3:1;ps.forEach(p=>{const ix=T.ord.indexOf(p.id),ex=rr.indexOf(p);p.mor=C(p.mor+(w?1:-.8*m)-(ix>ex+2&&ex<7?.8:0)+(p.mor<60?.3:0)-(p.mor>85?.5:0),5,99)});}}
-function day(){if(G.rd>=62)return;const b=by();G.sch[G.rd].forEach(([h,a])=>{const u=h==G.me||a==G.me,r=sim([h,a],[ro(h,b),ro(a,b)],u);fin(h,a,r,1);if(u){UI.last=r;UI.gn=(UI.gn||0)+1;UI.h=h;const T=G.T[G.me],pc=(T.w+T.l)?T.w/(T.w+T.l):.5;if(h==G.me){T.rev+=+(5.5*T.mk*(.85+.3*pc)*(1+.08*((T.fac||{}).arena||0))+(T.sp?T.sp.p/31:0)).toFixed(2)}T.ex+=+((pay(G.me)+staff(T))/62).toFixed(2)}});
-G.P.forEach(p=>{if(p.inj>0)p.inj--});G.rd++;syncOrd();msgs();moralFx();if(G.rd%6==0&&Math.random()<.6)evt();if(G.rd%7==0){const T=G.T[G.me];if(T.rs.slice(-7).length==7&&T.rs.slice(-7).every(x=>x[1]>x[2]))G.k.pm=1}}
+function day(){if(G.rd>=62||G.dd)return;const b=by();G.sch[G.rd].forEach(([h,a])=>{const u=h==G.me||a==G.me,r=sim([h,a],[ro(h,b),ro(a,b)],u);fin(h,a,r,1);if(u){UI.last=r;UI.gn=(UI.gn||0)+1;UI.h=h;const T=G.T[G.me],pc=(T.w+T.l)?T.w/(T.w+T.l):.5;if(h==G.me){T.rev+=+(5.5*T.mk*(.85+.3*pc)*(1+.08*((T.fac||{}).arena||0))+(T.sp?T.sp.p/31:0)).toFixed(2)}T.ex+=+((pay(G.me)+staff(T))/62).toFixed(2)}});
+G.P.forEach(p=>{if(p.inj>0)p.inj--});G.rd++;G.gd=(G.gd||0)+1;syncOrd();msgs();moralFx();resolveOffers();if(G.rd%6==0&&Math.random()<.6)evt();if(G.rd%7==0){const T=G.T[G.me];if(T.rs.slice(-7).length==7&&T.rs.slice(-7).every(x=>x[1]>x[2]))G.k.pm=1}}
 const staff=T=>+Object.values(T.sf).reduce((s,c)=>s+c.sal,0).toFixed(1);
 /* ---------- PLAYOFFS ---------- */
 const cmp=(a,b)=>(b.w/(b.w+b.l||1)-a.w/(a.w+a.l||1))||((b.pf-b.pa)-(a.pf-a.pa)),ns=(a,b,r,c)=>({a:a.id,b:b.id,wa:0,wb:0,r,c,da:0,db:0,done:0});
-function endReg(){if([...G.T].sort(cmp)[0].id==G.me)G.k.bs=1;const b=by(),cf=[0,1].map(c=>G.T.filter(t=>t.id%2==c).sort(cmp)),pi=[],sd=[];
+function endReg(){if([...G.T].sort(cmp)[0].id==G.me)G.k.bs=1;G.dw=[0,1,2,3].map(d=>G.T.filter(t=>t.id%4==d).sort(cmp)[0].id);if(G.dw.includes(G.me)){G.k.dv=(G.k.dv||0)+1;mail('Division champions','You won the '+DIVN[G.me%4]+' Division.','News')}const b=by(),cf=[0,1].map(c=>G.T.filter(t=>t.id%2==c).sort(cmp)),pi=[],sd=[];
 cf.forEach(s=>{const f=(x,y)=>{const r=sim([x.id,y.id],[ro(x.id,b),ro(y.id,b)],0),w=r.sc[0]>r.sc[1]?x:y;pi.push(`${x.n} ${r.sc[0]}-${r.sc[1]} ${y.n}`);return[w,w==x?y:x]};
 const[a1,a2]=f(s[4],s[5]),[b1,b2]=f(s[6],s[7]),[c1]=f(s[8],s[9]),[d1,d2]=f(a2,c1),[e1]=f(b2,d2);sd.push([...s.slice(0,4),a1,b1,d1,e1])});
-G.po={rd:1,pi,champ:null,ser:[]};sd.forEach((s,c)=>[[0,7],[3,4],[2,5],[1,6]].forEach(([i,j])=>G.po.ser.push(ns(s[i],s[j],1,c))))}
-function poDay(){const po=G.po;if(!po||po.champ)return;const cur=po.ser.filter(s=>s.r==po.rd),b=by();
+G.po={rd:1,pi,champ:null,ser:[]};G.po.sd={};sd.forEach(s=>s.forEach((t,i)=>G.po.sd[t.id]=i+1));sd.forEach((s,c)=>[[0,7],[3,4],[2,5],[1,6]].forEach(([i,j])=>G.po.ser.push(ns(s[i],s[j],1,c))))}
+function poDay(){const po=G.po;if(!po||po.champ!=null)return;G.gd=(G.gd||0)+1;resolveOffers();const cur=po.ser.filter(s=>s.r==po.rd),b=by();
 cur.forEach(s=>{if(s.done)return;const hm=[1,1,0,0,1,0,1][s.wa+s.wb]?s.a:s.b,aw=hm==s.a?s.b:s.a,u=hm==G.me||aw==G.me,r=sim([hm,aw],[ro(hm,b),ro(aw,b)],u);if(u){UI.last=r;UI.gn=(UI.gn||0)+1;UI.h=hm}
 (r.sc[0]>r.sc[1]?hm:aw)==s.a?s.wa++:s.wb++;s.da=Math.max(s.da,s.wb-s.wa);s.db=Math.max(s.db,s.wa-s.wb);
 if(s.wa==4||s.wb==4){s.done=1;s.w=s.wa==4?s.a:s.b;if(s.w==G.me&&(s.w==s.a?s.da:s.db)>=3)G.k.pc=1}});
-if(!cur.every(s=>s.done))return;const nx=[];
+if(!cur.every(s=>s.done))return;const nx=[];if(po.rd==3){po.cw=[0,1].map(c=>cur.find(s=>s.c==c).w);if(po.cw.includes(G.me)){G.k.cf=(G.k.cf||0)+1;toast('🏅 Conference champions!')}}
 if(po.rd<3)[0,1].forEach(c=>{const w=cur.filter(s=>s.c==c).map(s=>G.T[s.w]);for(let i=0;i<w.length;i+=2){const[x,y]=[w[i],w[i+1]].sort(cmp);nx.push(ns(x,y,po.rd+1,c))}});
 else if(po.rd==3){const w=cur.map(s=>G.T[s.w]).sort(cmp);nx.push(ns(w[0],w[1],4,0))}
-else{po.champ=cur[0].w;{const aw=awards(),f=po.ser.find(q=>q.r==4),M=G.T[G.me];G.hist.push({season:G.season,champ:po.champ,tn:G.T[po.champ].n,fin:f?G.T[f.a==po.champ?f.b:f.a].n:"",rec:M.w+"-"+M.l,aw});awMail(aw)}if(po.champ==G.me){G.k.ch++;if(G.hist.length>1&&G.hist[G.hist.length-2].champ==G.me)G.k.rp=1;toast('🏆 CHAMPIONS!')}return}
+else{po.champ=cur[0].w;{const aw=awards(),f=po.ser.find(q=>q.r==4),M=G.T[G.me];G.hist.push({season:G.season,champ:po.champ,tn:G.T[po.champ].n,fin:f?G.T[f.a==po.champ?f.b:f.a].n:"",rec:M.w+"-"+M.l,aw,cw:po.cw||[],dw:G.dw||[],cn:(po.cw||[]).map(i=>G.T[i].n),dn:(G.dw||[]).map(i=>G.T[i].n)});awMail(aw)}if(po.champ==G.me){G.k.ch++;if(G.hist.length>1&&G.hist[G.hist.length-2].champ==G.me)G.k.rp=1;toast('🏆 CHAMPIONS!')}return}
 po.rd++;po.ser.push(...nx)}
 /* ---------- AI / ECONOMY ---------- */
 const val=(p,T)=>{let v=Math.pow(Math.max(1,p.ovr-48),2.2)/12;const rb=T&&(T.st=='Rebuilding'||T.st=='Youth');if(p.age>=31)v*=Math.pow(.82,p.age-30);if(p.age<=24||rb)v+=(p.pot-p.ovr)*.9*(rb?1.5:1);v*=p.star==2?1.7:p.star?1.25:1;v-=p.sal*.12*(T&&T.st=='Frugal'?2:1);return Math.max(.3,v)};
-function okTrade(tid,mn,th,ai){const T=G.T[tid],M=G.T[G.me],pm=mn.map(i=>G.P.find(p=>p.id==i)),pt=th.map(i=>G.P.find(p=>p.id==i));if(!pm.length&&!pt.length)return'Select players.';
-const inV=pm.reduce((s,p)=>s+val(p,T),0),outV=pt.reduce((s,p)=>s+val(p,T),0),thr=[1,1.1,1.25][G.diff]*(1+.03*Math.max(0,pm.length-1));
-const n1=tp(tid).length+pm.length-pt.length,n2=tp(G.me).length-pm.length+pt.length;if(n1>15||n2>15||n1<10||n2<10)return'Roster sizes must stay between 10 and 15.';
-const sI=pm.reduce((s,p)=>s+p.sal,0),sO=pt.reduce((s,p)=>s+p.sal,0);
-if(pay(tid)+sI-sO>TAX*(T.rich?1.2:1)&&sI>sO)return T.n+' cannot absorb the salary.';if(pay(G.me)+sO-sI>TAX*(M.rich?1.2:1)&&sO>sI)return'Your payroll would be too high.';
-if(inV<outV*thr)return T.n+' rejects: not enough value.';return 0}
-function doTrade(tid,mn,th){mn.forEach(i=>G.P.find(p=>p.id==i).tid=tid);th.forEach(i=>{const p=G.P.find(p=>p.id==i);p.tid=G.me;p.tr=0;if(p.star==1)G.k.sg=1;if(p.star==2)G.k.xs=1});G.k.tr++;syncOrd()}
+const MONTH=28;
+const pkOf=id=>(G.pk||[]).find(k=>k.id==id),trk=k=>!(G.dd&&k.y==(G.dd.y||G.season)),pkn=k=>k.y+' Rd '+k.r+(k.o!=k.t?' ('+G.T[k.o].n.split(' ').pop()+')':'');
+const pkv=(k,T)=>{const o=to(k.o);let v=k.r==1?C(8+(80-o)*.7,6,22):C(2.5+(80-o)*.2,1.5,7);v*=1-.06*Math.max(0,k.y-G.season);if(T)v*=(T.st=='Rebuilding'||T.st=='Youth')?1.3:(T.st=='Win-now'||T.st=='Contender')?.75:1;return v};
+function lockLeft(id){const x=(G.rj||{})[id];return x&&x.u>G.gd?x.u-G.gd:0}
+function rjAdd(id){const r=G.rj=G.rj||{},x=r[id]=r[id]||{n:0,u:0};if(x.u>G.gd)return;x.n++;if(x.n>=5){x.n=0;x.u=G.gd+MONTH;const p=G.P.find(q=>q.id==id);if(p)toast('Talks about '+p.n+' are frozen for a month.')}}
+function wants(p,dest){let r=(p.mor-55)/100+(p.pe=='Loyal'?.2:0)-(p.tr?.6:0)-(p.pe=='Chill'?.1:0);if(p.pe=='Winner'&&p.tid>=0&&dest>=0&&to(dest)<to(p.tid)-3)r+=.2;return Math.random()>=C(r,0,.85)}
+function trChk(tid,mn,th,pm,pt){pm=pm||[];pt=pt||[];const T=G.T[tid],M=G.T[G.me];if(!T||tid==G.me)return'Pick another team.';
+ if(!mn.length&&!th.length&&!pm.length&&!pt.length)return'Select players or picks.';
+ const PM=mn.map(i=>G.P.find(p=>p.id==i)),PT=th.map(i=>G.P.find(p=>p.id==i));
+ if(PM.some(p=>!p||p.tid!=G.me)||PT.some(p=>!p||p.tid!=tid))return'Those players are no longer available.';
+ if(pm.some(i=>{const k=pkOf(i);return!k||k.t!=G.me||!trk(k)})||pt.some(i=>{const k=pkOf(i);return!k||k.t!=tid||!trk(k)}))return'Those picks are no longer available.';
+ const lk=PT.find(p=>lockLeft(p.id));if(lk)return lk.n+' is off the table for '+lockLeft(lk.id)+' more game days (too many rejections).';
+ const c1=tp(tid).length,c2=tp(G.me).length,n1=c1+PM.length-PT.length,n2=c2-PM.length+PT.length;
+ if(n1<10||n2<10||(n1>15&&n1>c1)||(n2>15&&n2>c2))return'Roster sizes must stay between 10 and 15.';
+ const sI=PM.reduce((s,p)=>s+p.sal,0),sO=PT.reduce((s,p)=>s+p.sal,0);
+ if(pay(tid)+sI-sO>TAX*(T.rich?1.2:1)&&sI>sO)return T.n+' cannot absorb the salary.';
+ if(pay(G.me)+sO-sI>TAX*(M.rich?1.2:1)&&sO>sI)return'Your payroll would be too high.';return 0}
+function trVal(tid,mn,th,pm,pt){const T=G.T[tid],g=i=>G.P.find(p=>p.id==i),pv=i=>{const k=pkOf(i);return k?pkv(k,T):0};pm=pm||[];pt=pt||[];
+ const iv=mn.map(g).filter(Boolean).reduce((s,p)=>s+val(p,T),0)+pm.reduce((s,i)=>s+pv(i),0),ov=th.map(g).filter(Boolean).reduce((s,p)=>s+val(p,T),0)+pt.reduce((s,i)=>s+pv(i),0);
+ return[iv,ov,[1,1.1,1.25][G.diff]*(1+.03*Math.max(0,mn.length+pm.length-1))]}
+function okTrade(tid,mn,th,pm,pt){const e=trChk(tid,mn,th,pm,pt);if(e)return e;const[iv,ov,t]=trVal(tid,mn,th,pm,pt);return iv<ov*t?G.T[tid].n+' rejects: not enough value.':0}
+function doTrade(tid,mn,th,pm,pt){mn.forEach(i=>{const p=G.P.find(p=>p.id==i);p.tid=tid;p.tr=0});th.forEach(i=>{const p=G.P.find(p=>p.id==i);p.tid=G.me;p.tr=0;if(p.star==1)G.k.sg=1;if(p.star==2)G.k.xs=1});(pm||[]).forEach(i=>pkOf(i).t=tid);(pt||[]).forEach(i=>pkOf(i).t=G.me);G.k.tr++;syncOrd()}
+const dsc=(ids,pks)=>[...ids.map(i=>{const p=G.P.find(x=>x.id==i);return p?p.n+' ('+p.ovr+')':'a player'}),...(pks||[]).map(i=>{const k=pkOf(i);return k?pkn(k):'a pick'})].join(', ')||'nothing';
+function answer(q){const T=G.T[q.tid],g=i=>G.P.find(p=>p.id==i),pm=q.m.map(g),pt=q.h.map(g),mm=(h,b)=>mail(h,b,'Offer',q.t);
+ const e=trChk(q.tid,q.m,q.h,q.pm,q.pt);if(e)return mm(T.n+' offer cancelled',e);
+ const un=pm.map(p=>[p,q.tid]).concat(pt.map(p=>[p,q.t])).find(x=>!wants(x[0],x[1]));
+ if(un){q.h.forEach(i=>rjAdd(i));return mm(T.n+' say no','The deal fell through: '+un[0].n+' does not want to be traded right now (mood '+Math.round(un[0].mor)+').')}
+ const[iv,ov,th]=trVal(q.tid,q.m,q.h,q.pm,q.pt);
+ if(iv>=ov*th){doTrade(q.tid,q.m,q.h,q.pm,q.pt);ck();return mm('Trade accepted by '+T.n,'Done. You sent '+dsc(q.m,q.pm)+' and received '+dsc(q.h,q.pt)+'.')}
+ if(iv>=ov*th*.7){const need=ov*th-iv,opts=[];
+  mine().forEach(p=>{if(!q.m.includes(p.id)&&p.star!=2&&!lockLeft(p.id))opts.push({p,v:val(p,T)})});
+  G.pk.forEach(k=>{if(k.t==q.t&&!q.pm.includes(k.id)&&trk(k))opts.push({k,v:pkv(k,T)})});
+  opts.sort((a,b)=>a.v-b.v);
+  for(const o of opts){if(o.v<need)continue;const m2=o.p?[...q.m,o.p.id]:q.m,p2=o.k?[...q.pm,o.k.id]:q.pm;if(trChk(q.tid,m2,q.h,p2,q.pt)||(o.p&&!wants(o.p,q.tid)))continue;
+   return mail('Counter-offer from '+T.n,T.n+' like the idea but want more. They ask you to send '+dsc(m2,p2)+' for '+dsc(q.h,q.pt)+'.','Offer',q.t,{from:q.tid,give:m2,get:[...q.h],pg:p2,pt:[...q.pt],hum:0,ct:1})}}
+ q.h.forEach(i=>rjAdd(i));mm(T.n+' decline','They turned down '+dsc(q.m,q.pm)+' for '+dsc(q.h,q.pt)+'. Try sweetening the offer.')}
+function resolveOffers(force){const Q=G.tq||[];if(!Q.length)return;const keep=[],me0=G.me;
+ Q.forEach(q=>{if(!force&&q.due>G.gd){keep.push(q);return}G.me=q.t;try{answer(q);if(q.t==me0)toast('✉ '+G.T[q.tid].n+' replied to your offer')}catch(e){console.error(e)}});
+ G.me=me0;G.tq=keep;syncOrd()}
+function withdrawOff(id){G.tq=(G.tq||[]).filter(q=>!(q.id==id&&q.t==G.me));toast('Offer withdrawn');render()}
 const ask=p=>+(p.sal*(p.pe=='Money-first'?1.12:1)).toFixed(1);
 function signChk(p,off,yrs,T){const need=ask(p)*(1-(to(T.id)-75)/500-(p.pe=='Winner'&&to(T.id)>80?.04:0)+(yrs==1&&p.age<28?.03:0));
 if(tp(T.id).length>=15)return'Roster full (15).';if(off<need)return`${p.n} wants about $${need.toFixed(1)}M.`;if(pay(T.id)+off>cap(T)&&off>1.5)return'Over the salary cap.';return 0}
@@ -189,18 +216,19 @@ else if(m>78)t=P(["I'm happy with my current role.","I think we can win this gam
 if(t&&Math.random()<.16)out.push({d:G.rd,p:p.id,t})});G.msgs=[...out,...G.msgs].slice(0,40)}
 function prog(p,rt){const T=G.T[p.tid],dv=T?(T.sf.DEV.ovr-60)/25+((T.fac||{}).train||0)*.3:0;let d=p.age<=22?I(1,5):p.age<=25?I(0,3):p.age<=29?I(-1,2):p.age<=32?I(-3,1):I(-5,0);
 if(p.age<=25)d+=Math.round((p.pot-p.ovr)/12);d+=Math.round(dv+(p.mor-65)/40);if(Math.random()<.05)d+=3;if(p.st.g<15&&p.age<24)d--;
-const o=C(p.ovr+C(d,-8,9),38,99);d=o-p.ovr;p.ovr=o;for(const k in p.a)p.a[k]=C(p.a[k]+d+I(-1,1),20,99);
+const o=C(p.ovr+C(d,-8,9),38,99);d=o-p.ovr;p.gn=d;p.ovr=o;for(const k in p.a)p.a[k]=C(p.a[k]+d+I(-1,1),20,99);
 if(p.tid==G.me)(TRN[G.tr]||[]).forEach(k=>p.a[k]=C(p.a[k]+1,20,99));if(p.age>25)p.pot=Math.max(p.pot-2,p.ovr);p.pot=Math.max(p.pot,p.ovr);p.age++;
 for(const k in p.st)p.cr[k]+=p.st[k];p.st=z()}
-function nextSeason(){const exp=mine().filter(p=>p.yrs<=1);if(exp.length&&!confirm(exp.length+' of your players have expiring contracts and will hit free agency (use Extend on their profile first). Continue?'))return;
-G.P.forEach(p=>prog(p));G.P=G.P.filter(p=>!(p.age>=36&&Math.random()<(p.age-35)*.25));
-G.P.forEach(p=>{if(p.tid>=0){p.yrs--;if(p.yrs<=0){if(p.tid!=G.me&&(p.ovr>58||Math.random()<.4)){p.yrs=I(1,4);p.sal=sal(p.ovr)}else{p.tid=-1;p.tr=0}}}p.inj=0;p.mor=C(p.mor+5,20,95)});
+function nextSeason(){if(G.dd||!G.po||G.po.champ==null)return toast('Finish the season first.');const exp=mine().filter(p=>p.yrs<=1);if(exp.length&&!confirm(exp.length+' of your players have expiring contracts and will hit free agency (use Extend on their profile first). Continue?'))return;
+G.pw=G.T.map(t=>t.w/(t.w+t.l||1));resolveOffers(1);G.P.forEach(p=>prog(p));G.P=G.P.filter(p=>!(p.age>=36&&Math.random()<(p.age-35)*.25));
+G.P.forEach(p=>{if(p.tid>=0){p.yrs--;if(p.yrs<=0){if(p.tid!=G.me&&(p.ovr>58||Math.random()<.4)){p.yrs=I(1,4);p.sal=sal(p.ovr)}else{p.tid=-1;p.tr=0}}}p.inj=0;{const T=G.T[p.tid];p.mor=T&&!drHum().includes(p.tid)?C(Math.round(p.mor+(60+((T.w/(T.w+T.l||1))-.5)*50-p.mor)*.4),30,90):C(p.mor+5,20,95)}});
 for(let i=0;i<16;i++)G.P.push(mkP(I(44,60),I(19,21),I(66,88)));
 const tm=[...G.T];G.P.filter(p=>p.tid<0).sort((a,b)=>b.ovr-a.ovr).forEach(p=>{const c=tm.filter(T=>T.id!=G.me&&tp(T.id).length<14&&!signChk(p,ask(p),2,T)).map(T=>[T,(to(T.id)-70)/10+(tp(T.id).filter(x=>x.ovr>p.ovr).length<8?1:0)+(T.rich?.5:0)+Math.random()*2]).sort((a,b)=>b[1]-a[1])[0];if(c&&p.ovr>50){p.tid=c[0].id;p.yrs=I(1,4);p.sal=ask(p)}});
-G.P.forEach(p=>{const n=p.ovr>=96?2:p.ovr>=88?1:0,T=G.T[p.tid];let s=n==2&&(!T||to(T.id)<85)?1:n;if(s!=p.star){p.star=s;setBo(p)}});
+{const fa=G.P.filter(p=>p.tid<0).sort((a,b)=>(b.ovr+b.pot*.3)-(a.ovr+a.pot*.3)),dr=new Set(fa.slice(70));G.P=G.P.filter(p=>!dr.has(p))}
+let xc=G.P.filter(p=>p.star==2&&p.ovr>=88).length;G.P.forEach(p=>{const T=G.T[p.tid];let s=p.ovr>=96&&T&&to(T.id)>=85?2:p.ovr>=88?1:0;if(p.star==2&&p.ovr>=88)s=2;if(p.star==1&&p.gn>=3&&p.ovr>=88&&xc<16){s=2;xc++}if(s!=p.star){const up=s==2&&p.star==1;p.star=s;setBo(p);if(up&&drHum().includes(p.tid))mail('⭐ XStar promotion',p.n+' gained '+p.gn+' OVR and is now an XStar!','News',p.tid)}});
 G.T.forEach(T=>{T.bk=(T.bk==null?(T.rich?35:20):T.bk)+T.rev-T.ex+(T.id==G.me?0:T.rich?8:4);if(T.sp&&--T.sp.y<=0)T.sp=Math.random()<.6&&T.id!=G.me?{n:P(SPN),p:+R(2,6).toFixed(1),y:2}:null});
-G.T.forEach(T=>{T.w=T.l=T.pf=T.pa=T.sk=0;T.rs=[];T.rev=T.ex=0});G.rd=0;G.po=null;G.season++;mkSch();syncOrd();while(tp(G.me).length<10){const p=G.P.filter(p=>p.tid<0).sort((a,b)=>b.ovr-a.ovr)[0];p.tid=G.me;p.yrs=1;p.sal=ask(p)}syncOrd();aiWeek();ck();sv();go('dash')}
-function ck(){const k=G.k,T=G.T[G.me],A={fw:k.w>=1,ft:k.tr>=1,fc:k.ch>=1,dy:k.ch>=3,pm:k.pm,bs:k.bs,ss:k.sg,xs:k.xs,rc:to(G.me)>=k.o0+8,pc:k.pc,w10:k.mx>=10,w100:k.w>=100,rp:k.rp,...XA()};
+G.T.forEach(T=>{T.w=T.l=T.pf=T.pa=T.sk=0;T.rs=[];T.rev=T.ex=0});G.rd=0;G.po=null;G.season++;mkSch();syncOrd();while(tp(G.me).length<10){const p=G.P.filter(p=>p.tid<0).sort((a,b)=>b.ovr-a.ovr)[0];p.tid=G.me;p.yrs=1;p.sal=ask(p)}syncOrd();aiWeek();startDraft();ck();sv();go(G.dd?'draft':'dash')}
+function ck(){const k=G.k,T=G.T[G.me],A={fw:k.w>=1,ft:k.tr>=1,fc:k.ch>=1,dy:k.ch>=3,pm:k.pm,bs:k.bs,ss:k.sg,xs:k.xs,rc:to(G.me)>=k.o0+8,pc:k.pc,w10:k.mx>=10,w100:k.w>=100,rp:k.rp,cf:k.cf>=1,dv:k.dv>=1,...XA()};
 AL.forEach(([id,n])=>{if(A[id]&&!G.ach[id]){G.ach[id]=G.season;toast('🏅 Achievement: '+n)}})}
 const XL=[
 ['w5','Hot Streak','Win 5 in a row',()=>G.k.mx>=5],['w15','Unstoppable','Win 15 in a row',()=>G.k.mx>=15],['w20','Untouchable','Win 20 in a row',()=>G.k.mx>=20],
@@ -217,7 +245,7 @@ const XL=[
 ['mp','MVP Candidate','Have a 95+ OVR player',()=>mine().some(p=>p.ovr>=95)],['pr','Future Star','Roster a 21-or-younger with 90+ POT',()=>mine().some(p=>p.age<=21&&p.pot>=90)],['vet','Wise Old Head','Roster a player aged 35+',()=>mine().some(p=>p.age>=35)],['hp','Happy Family','Team morale 85+',()=>mine().length&&mine().reduce((q,p)=>q+p.mor,0)/mine().length>=85],['fh','Full House','Fill all 15 roster spots',()=>mine().length>=15],
 ['ds','Dream Staff','Every coach 70+ OVR',()=>Object.values(G.T[G.me].sf).every(c=>c.ovr>=70)],['pf','In the Black','Profit $20M+ in a season',()=>G.rd>=40&&G.T[G.me].rev-G.T[G.me].ex>=20],['bsp','Big Spender','Payroll above $150M',()=>pay(G.me)>150],
 ['y5','Five Seasons','Play 5 seasons',()=>G.season>=2031],['y10','Decade of Hoops','Play 10 seasons',()=>G.season>=2036]];
-AL.push(...XL.map(x=>x.slice(0,3)));function XA(){const o={};XL.forEach(x=>{try{o[x[0]]=!!x[3]()}catch(e){}});return o}
+AL.push(['cf','Conference Champion','Win a conference title'],['dv','Division Champion','Win a division title'],...XL.map(x=>x.slice(0,3)));function XA(){const o={};XL.forEach(x=>{try{o[x[0]]=!!x[3]()}catch(e){}});return o}
 /* ---------- SAVE ---------- */
 /* ---------- SAVE (account / cloud) ---------- */
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -242,7 +270,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState=='
 async function refreshSaves(){if(!acct()){CL={};CLR=0;return}CLR=0;
  try{const l=await api('GET','/api/saves');CL={};l.forEach(x=>CL[x.slot]=x);CLR=1}catch(e){CLR=e===401?0:2}
  if(!G&&!$('#md').style.display.startsWith('b'))render()}
-function ld(s){try{const r=CS[s];if(!r||!r.data)return toast('Empty slot');G=r.data;UI.slot=s;UI.v='dash';render()}catch(e){toast('Load failed')}}
+function ld(s){try{const r=CS[s];if(!r||!r.data)return toast('Empty slot');G=r.data;fixG();UI.slot=s;UI.v=G.dd?'draft':'dash';render()}catch(e){toast('Load failed')}}
 async function ldc(s){if(!acct())return askSign('Sign in to load your saved franchises.');
  try{toast('Loading...');CS[s]=await api('GET','/api/saves/'+s);ld(s);delete CS[s]}catch(e){if(e==404)toast('Empty slot');else if(e!==401)toast('Load failed')}}
 function askSign(msg){const m=$('#md');UI.signm=1;
@@ -272,12 +300,12 @@ async function afterLogin(){UI.nw=0;if(UI.signm){UI.signm=0;$('#md').style.displ
 const banner=()=>acct()?'':`<div class=warn><span>Not signed in. Your progress is <b>not</b> being saved.</span><button onclick="askSign()">Sign in</button></div>`;
 
 /* ---------- UI ---------- */
-const NAV=[['dash','Dashboard'],['roster','Roster'],['sched','Schedule'],['stand','Standings'],['match','Match Center'],['trade','Trades'],['fa','Free Agency'],['search','Player Search'],['staff','Coaching'],['fin','Finances'],['lstats','League Stats'],['tstats','Team Stats'],['draft','Draft'],['mail','Mailbox'],['ach','Achievements']];
+const NAV=[['dash','Dashboard'],['roster','Roster'],['sched','Schedule'],['stand','Standings'],['bracket','Playoffs'],['match','Match Center'],['trade','Trades'],['fa','Free Agency'],['search','Player Search'],['staff','Coaching'],['fin','Finances'],['lstats','League Stats'],['tstats','Team Stats'],['draft','Draft'],['mail','Mailbox'],['ach','Achievements']];
 const go=v=>{UI.v=v;render()},tb=(h,r)=>`<div class=w><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr${x.cls?` class=${x.cls}`:''}>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
 const pln=p=>`<a onclick="prof(${p.id})">${p.n}</a>${p.star==2?' <b class=xs>XSTAR</b>':p.star?' <b class=ss>★</b>':''}${p.inj?` <span class=rd>+${p.inj}</span>`:''}`;
 const hud=()=>{const T=G.T[G.me],ps=mine(),mo=Math.round(ps.reduce((s,p)=>s+p.mor,0)/ps.length),c=(l,v)=>`<div class=s><small>${l}</small><b>${v}</b></div>`;return`<div id=hud style="border-bottom-color:${TC[G.me][0]}">${c('TEAM',T.n.split(' ').pop())}${c('OVR',to(G.me))}${c('RECORD',T.w+'-'+T.l)}${c('RANK','#'+rank(G.me))}${c('GAME',G.po?'PLAYOFFS':G.rd+'/62')}${c('PAYROLL','$'+pay(G.me)+'M')}${c('MORALE',mo)}${c('STREAK',T.sk?sg(T.sk):'-')}</div>`};
-function render(){if(G&&G.T){G.T.forEach(t=>{if(t.c)TC[t.id]=t.c});try{const n=NAV.find(x=>x[0]=='mail');if(n)n[1]='✉ Mailbox'+(unread()?' ('+unread()+')':'')}catch(e){}}if(!G){$('#app').innerHTML=menu();return}
-$('#app').innerHTML=hud()+banner()+`<div id=lay><nav>${NAV.map(([k,l])=>`<button class="${UI.v==k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')}<button onclick="saveNow()">Save</button><button onclick="SND=!SND;localStorage.setItem('pbl_snd',SND?1:0);render()">Sound: ${SND?'On':'Off'}</button><button onclick="flushSave();G=null;UI.menu='main';render()">Menu</button></nav><main>${VW[UI.v]()}</main></div><div id=act>${actbar()}<button onclick="tut(0)">? Help</button></div>`;if(UI.v=='match')draw();if(!G.tutSeen&&UI.tg!==G){UI.tg=G;tut(0)}}
+function render(){if(BULK)return;if(G&&G.T){G.T.forEach(t=>{if(t.c)TC[t.id]=t.c});try{const n=NAV.find(x=>x[0]=='mail');if(n)n[1]='✉ Mailbox'+(unread()?' ('+unread()+')':'')}catch(e){}}if(!G){$('#app').innerHTML=menu();return}
+$('#app').innerHTML=hud()+banner()+`<div id=lay><nav>${NAV.map(([k,l])=>`<button class="${UI.v==k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')}<button onclick="saveNow()">Save</button><button onclick="openSet()">Settings</button><button onclick="SND=!SND;localStorage.setItem('pbl_snd',SND?1:0);render()">Sound: ${SND?'On':'Off'}</button><button onclick="flushSave();G=null;UI.menu='main';render()">Menu</button></nav><main>${VW[UI.v]()}</main></div><div id=act>${actbar()}<button onclick="tut(0)">? Help</button></div>`;if(UI.v=='match')draw();if(!G.tutSeen&&UI.tg!==G){UI.tg=G;tut(0)}}
 /* ---------- ONLINE ---------- */
 const ON={ws:null,name:'',u:null,room:null,host:0,hostName:'',mode:'',mem:[],own2:{},hm:null,lb:[],sg:0};
 const WL=['sd','pl','pd','nextSeason','mv','rel','sign','ext','hire','fire','prop','pvp'],ADV=['sd','pl','pd','nextSeason'];
@@ -307,17 +335,17 @@ if(G.me==null){G=null;return render()}if(first)UI.v='dash';
 if(d.go&&d.last){UI.last=d.last;UI.gn=(UI.gn||0)+1;UI.h=d.last.t[0];UI.v='match';clearTimeout(UI.iv);UI.k=0;UI.cp=null;UI.sl=0;render();watch()}else render()}
 function hx(from,fn,a,ctx){if(!G||!WL.includes(fn)||!Array.isArray(a)||(ON.specs&&ON.specs[from]))return;const tm=ON.mode=='coop'?ON.hm:ON.own2[from];if(tm==null)return;
 if(ON.mode=='fight'&&ADV.includes(fn))return tx({t:'one',to:from,d:{k:'toast',m:'Only the host can advance the season in Fight rooms'}});
-const hm=G.me,sc=window.confirm,st=toast,ms=[],sv0=[UI.tt,UI.mine,UI.theirs],dv=document.createElement('div');
+const hm=G.me,sc=window.confirm,st=toast,ms=[],sv0=[UI.tt,UI.mine,UI.theirs,UI.mpk,UI.tpk],dv=document.createElement('div');
 window.confirm=()=>true;toast=m=>{ms.push(m)};
-try{G.me=tm;if(ctx){if(ctx.tt!=null){UI.tt=ctx.tt;UI.mine=ctx.mine||[];UI.theirs=ctx.theirs||[]}if(ctx.off!=null){dv.style.display='none';dv.innerHTML='<input id=o'+(+a[0])+' value='+(+ctx.off)+'><input id=y'+(+a[0])+' value='+(+ctx.yrs)+'>';document.body.appendChild(dv)}}window[fn](...a)}
-catch(e){ms.push('Action failed')}finally{G.me=hm;window.confirm=sc;toast=st;[UI.tt,UI.mine,UI.theirs]=sv0;dv.remove()}
+try{G.me=tm;if(ctx){if(ctx.tt!=null){UI.tt=ctx.tt;UI.mine=ctx.mine||[];UI.theirs=ctx.theirs||[];UI.mpk=ctx.mpk||[];UI.tpk=ctx.tpk||[]}if(ctx.off!=null){dv.style.display='none';dv.innerHTML='<input id=o'+(+a[0])+' value='+(+ctx.off)+'><input id=y'+(+a[0])+' value='+(+ctx.yrs)+'>';document.body.appendChild(dv)}}window[fn](...a)}
+catch(e){ms.push('Action failed')}finally{G.me=hm;window.confirm=sc;toast=st;[UI.tt,UI.mine,UI.theirs,UI.mpk,UI.tpk]=sv0;dv.remove()}
 bc();if(ms.length)tx({t:'one',to:from,d:{k:'toast',m:ms.join(' · ')}})}
 function pvp(opp){if(!ON.room||ON.mode!='fight'||!ON.host)return toast('Fights only work in Fight rooms');const me=G.me;if(opp==me||G.T[opp]==null)return;
 if(Date.now()-(ON.cd||0)<8000)return toast('Wait a few seconds between fights');ON.cd=Date.now();const b=by(),g=UI.gn||0,r=sim([me,opp],[ro(me,b),ro(opp,b)],1);UI.last=r;UI.gn=g+1;UI.h=me;
 const w=r.sc[0]>r.sc[1]?me:opp,l=w==me?opp:me,nm=t=>t==ON.hm?ON.name:Object.keys(ON.own2).find(k=>ON.own2[k]==t);
 if(nm(w)&&nm(l))tx({t:'result',w:nm(w),l:nm(l)});toMC(g,1)}
 ['sd','pl','pd','nextSeason','mv','rel','sign','ext','hire','fire','prop','pvp'].forEach(f=>{const o=window[f];window[f]=function(...a){
-if(ON.spec){toast('You are spectating');return}if(ON.room&&!ON.host){tx({t:'host',d:{k:'rpc',fn:f,a,ctx:f=='prop'?{tt:UI.tt,mine:UI.mine,theirs:UI.theirs}:f=='sign'?{off:+$('#o'+a[0]).value,yrs:+$('#y'+a[0]).value}:null}});return}
+if(ON.spec){toast('You are spectating');return}if(ON.room&&!ON.host){tx({t:'host',d:{k:'rpc',fn:f,a,ctx:f=='prop'?{tt:UI.tt,mine:UI.mine,theirs:UI.theirs,mpk:UI.mpk,tpk:UI.tpk}:f=='sign'?{off:+$('#o'+a[0]).value,yrs:+$('#y'+a[0]).value}:null}});return}
 const r=o.apply(this,a);if(ON.room&&ON.host)bc();return r}});
 ['newG','ld'].forEach(f=>{const o=window[f];window[f]=function(...a){const r=o.apply(this,a);if(ON.room&&ON.host&&G){ON.hm=G.me;G.tutSeen=1;assign();bc()}return r}});
 function roomV(){const o=ON,tof=n=>o.mode=='coop'||n==o.hostName?o.hm:o.own2[n];
@@ -336,39 +364,45 @@ if(m=='load'){const u=acct();if(!u)return`<main><h1>Load Franchise</h1><p>Sign i
 return`<main><h1>Load Franchise</h1><p class=dim>Signed in as ${esc(u.n)}${CLR==0?' &middot; loading saves...':CLR==2?' &middot; could not reach the server':''}</p><div class=bar>${[1,2,3].map(s=>{const c=CL[s];return`<button onclick="ldc(${s})">${c?'Slot '+s+': '+esc(c.meta.team)+' &middot; '+esc(c.meta.season)+' &middot; '+esc(c.meta.rec):'Slot '+s+' (empty)'}</button>`}).join('')}<button onclick="UI.menu='main';render()">Back</button>${CLR==2?'<button onclick="refreshSaves()">Retry</button>':''}</div><p>Slot used for saving: <select onchange="UI.slot=+this.value">${[1,2,3].map(s=>`<option ${UI.slot==s?'selected':''}>${s}`).join('')}</select></p></main>`}
 if(m=='ach'){const c=CL[last]||CL[1]||CL[2]||CL[3],a=(c&&c.meta&&c.meta.ach)||{};return`<main><h1>Achievements</h1>${acct()?'':'<p class=dim>Sign in to see achievements from your saved franchise.</p>'}${achList(a)}<button onclick="UI.menu='main';render()">Back</button></main>`}
 
-if(m=='ct')return ctV();if(m=='set'){const u=acct();return`<main><h1>Settings</h1><p>Difficulty is chosen per franchise (Easy / Normal / Hard) and changes AI trade strictness and morale loss. Saves live in your account (3 slots).</p>${u?`<p>Account: <b>${esc(u.n)}</b></p><div class=bar><button onclick="copyKey()">Copy recovery key</button><button onclick="copyLink()">Copy sign-in link</button><button onclick="signOut()">Sign out</button></div><p class=dim>Your recovery key lets you sign in on another device. Keep it private.</p>`:`<p>Not signed in. <button onclick="askSign()">Sign in</button></p>`}<button onclick="UI.menu='ct';render()">Custom Teams</button> <button onclick="delAll()">Delete all saves</button> <button onclick="UI.menu='main';render()">Back</button></main>`}
+if(m=='ct')return ctV();if(m=='set'){const u=acct();return`<main><h1>Settings</h1><p>Difficulty is chosen per franchise (Easy / Normal / Hard) and changes AI trade strictness and morale loss. Saves live in your account (3 slots).</p>${setCtl()}${u?`<p>Account: <b>${esc(u.n)}</b></p><div class=bar><button onclick="copyKey()">Copy recovery key</button><button onclick="copyLink()">Copy sign-in link</button><button onclick="signOut()">Sign out</button></div><p class=dim>Your recovery key lets you sign in on another device. Keep it private.</p>`:`<p>Not signed in. <button onclick="askSign()">Sign in</button></p>`}<button onclick="UI.menu='ct';render()">Custom Teams</button> <button onclick="delAll()">Delete all saves</button> <button onclick="UI.menu='main';render()">Back</button></main>`}
 return`<main style="text-align:center;padding-top:40px"><h1>PBL</h1><h2>Pixel Basketball League</h2><p class=dim>30 teams &middot; 62 games &middot; one championship</p>${acct()?`<p class=dim>Signed in as ${esc(acct().n)}${CLR==0?' &middot; loading saves...':CLR==2?' &middot; could not reach the server <a onclick="refreshSaves()">Retry</a>':''}</p>`:`<div class=warn style="max-width:300px;margin:12px auto"><span>Sign in to save your progress.</span><button onclick="askSign()">Sign in</button></div>`}<div style="display:grid;gap:10px;max-width:300px;margin:24px auto">${last&&CL[last]?`<button onclick="ldc(${last})">Continue Franchise</button>`:''}<button onclick="UI.menu='new';render()">New Franchise</button><button onclick="UI.menu='load';render();refreshSaves()">Load Franchise</button><button onclick="UI.menu='set';render()">Settings</button><button onclick="UI.menu='ach';render()">Achievements</button><button onclick="openOn()">Online</button></div></main>`}
 const achList=a=>AL.map(([id,n,d])=>`<div class=msg style="${a[id]?'':'opacity:.5'}"><i class=lg style="background:${a[id]?'var(--ac)':'#444'}">${a[id]?'★':'?'}</i> <b>${n}</b> — ${d}${a[id]?` <span class=gd>Unlocked ${a[id]}</span>`:''}</div>`).join('');
-const ctl=()=>'';function actbar(){const po=G.po;return(G.rd<62?`<button onclick="pl()">▶ Play &amp; Watch</button><button onclick="sd(1)">Sim Day</button><button onclick="sd(7)">Sim Week</button><button onclick="sd(99)">Sim Season</button>`:po&&!po.champ?`<button onclick="pd(1)">Playoff Game</button><button onclick="pd(99)">Sim Playoffs</button>`:`<button onclick="nextSeason()">Next Season ▶</button>`)}
+const ctl=()=>'';function actbar(){const po=G.po;return(G.dd?`<button onclick="go('draft')">📋 Draft (required before the season)</button>`:G.rd<62?`<button onclick="pl()">▶ Play &amp; Watch</button><button onclick="sd(1)">Sim Day</button><button onclick="sd(7)">Sim Week</button><button onclick="sd(99)">Sim Season</button>`:po&&po.champ==null?`<button onclick="pd(1)">Playoff Game</button><button onclick="pd(99)">Sim Playoffs</button>`:`<button onclick="nextSeason()">Next Season ▶</button>`)}
 function after(){if(G.rd>=62&&!G.po)endReg();ck();sv()}
-function sd(n){const g=UI.gn;for(let i=0;i<n&&G.rd<62;i++){day();if(G.rd%7==0)aiWeek()}after();toMC(g,0)}
+function sd(n){if(!chkReady())return;const g=UI.gn;for(let i=0;i<n&&G.rd<62;i++){day();if(G.rd%7==0)aiWeek()}after();toMC(g,0)}
 function toMC(g,w){if(UI.gn!=g&&UI.last){const r=UI.last,my=r.t[0]==G.me?0:1,win=r.sc[my]>r.sc[1-my];toast((win?'✅ WIN ':'❌ LOSS ')+r.sc[my]+'-'+r.sc[1-my]+' vs '+G.T[r.t[1-my]].n);if(!w)bp(win?784:196,.4);UI.v='match';clearTimeout(UI.iv);UI.k=w?0:r_end();UI.cp=null;UI.sl=0;render();if(w)watch()}else render()}
-function pl(){if(G.rd>=62)return;const g=UI.gn;day();after();toMC(g,1)}
-function pd(n){const g=UI.gn;for(let i=0;i<n&&!G.po.champ;i++)poDay();ck();sv();toMC(g,n==1)}
+function pl(){if(G.rd>=62||!chkReady())return;const g=UI.gn;day();after();toMC(g,1)}
+function pd(n){if(!G.po||G.dd)return;const g=UI.gn;for(let i=0;i<n&&G.po.champ==null;i++)poDay();ck();sv();toMC(g,n==1)}
 const msgbox=()=>G.msgs.length?G.msgs.slice(0,8).map(m=>{const p=G.P.find(x=>x.id==m.p);return p?`<div class=msg><b>${pln(p)}</b> <span class=dim>(game ${m.d})</span><br>“${m.t}”</div>`:''}).join(''):'<div class=dim>No messages yet. Players will contact you as the season unfolds.</div>';
 const VW={
 dash(){const T=G.T[G.me],nx=G.sch[G.rd]&&G.sch[G.rd].find(g=>g.includes(G.me)),op=nx&&G.T[nx[0]==G.me?nx[1]:nx[0]],st=mine().filter(p=>p.star);
-return`<h2>${logo(T)} ${T.n}</h2><div class=g3><div class=pn>Team OVR <b class=px style="font-size:18px">${to(G.me)}</b><br>Power rank #${rank(G.me)} · Record ${T.w}-${T.l}<br>Style: ${T.st}</div><div class=pn>Payroll $${pay(G.me)}M / cap $${cap(T)}M<br>Season ${G.season} · Game ${G.rd}/62<br>Team morale ${Math.round(mine().reduce((s,p)=>s+p.mor,0)/mine().length)}</div><div class=pn>Next: ${op?`${op.n} (OVR ${to(op.id)})`:G.po?(G.po.champ?'Champion: '+G.T[G.po.champ].n:'Playoffs'):'—'}</div></div>${ctl()}
+return`<h2>${logo(T)} ${T.n}</h2><div class=g3><div class=pn>Team OVR <b class=px style="font-size:18px">${to(G.me)}</b><br>Power rank #${rank(G.me)} · Record ${T.w}-${T.l}<br>Style: ${T.st}</div><div class=pn>Payroll $${pay(G.me)}M / cap $${cap(T)}M<br>Season ${G.season} · Game ${G.rd}/62<br>Team morale ${Math.round(mine().reduce((s,p)=>s+p.mor,0)/mine().length)}</div><div class=pn>Next: ${op?`${op.n} (OVR ${to(op.id)})`:G.po?(G.po.champ!=null?'Champion: '+G.T[G.po.champ].n:'Playoffs'):'—'}</div></div>${ctl()}
 <h3>Training focus (applied in offseason)</h3><select onchange="G.tr=this.value">${Object.keys(TRN).map(k=>`<option ${G.tr==k?'selected':''}>${k}`).join('')}</select>
 <h3>Superstar / XStar perks</h3>${st.length?st.map(p=>`<div class=msg>${pln(p)} — ${p.bo.map(b=>`+${b.v}% ${BN[b.k]}`).join(', ')}</div>`).join(''):'<span class=dim>No stars on your roster.</span>'}
 <h3>Front office inbox</h3>${msgbox()}`},
 roster(){const T=G.T[G.me],ps=T.ord.map(i=>G.P.find(p=>p.id==i)).filter(Boolean);
-return`<h2>Roster (${ps.length}/15)</h2><div class=bar><button onclick="T=G.T[G.me];T.ord=[];syncOrd();render()">Auto-sort by OVR</button></div><p class=dim>First five are starters; bench minutes follow list order. Injured players are skipped automatically.</p>`+tb(['#','Player','Pos','Age','OVR','POT','Type','Mood','Contract','Status','Order',''],ps.map((p,i)=>Object.assign([i+1,pln(p),p.pos,p.age,p.ovr,p.pot,p.ar,Math.round(p.mor),`$${p.sal}M × ${p.yrs}y`,p.inj?`Inj ${p.inj}`:p.tr?'Wants trade':i<5?'Starter':'Bench',`<button onclick="mv(${p.id},-1)">▲</button><button onclick="mv(${p.id},1)">▼</button>`,`<button onclick="rel(${p.id})">Release</button>`],{cls:i<5?'st':''})))},
+return`<h2>Roster (${ps.length}/15)</h2>${ps.length>15?'<div class=warn><span>Roster over 15: release '+(ps.length-15)+' player(s) before the season can start.</span></div>':''}<div class=bar><button onclick="G.T[G.me].ord=[];syncOrd();render()">Auto-sort by OVR</button></div><p class=dim>First five are starters; bench minutes follow list order. Injured players are skipped automatically.</p>`+tb(['#','Player','Pos','Age','OVR','POT','Type','Mood','Contract','Status','Order',''],ps.map((p,i)=>Object.assign([i+1,pln(p),p.pos,p.age,p.ovr,p.pot,p.ar,Math.round(p.mor),`$${p.sal}M × ${p.yrs}y`,p.inj?`Inj ${p.inj}`:p.tr?'Wants trade':i<5?'Starter':'Bench',`<button onclick="mv(${p.id},-1)">▲</button><button onclick="mv(${p.id},1)">▼</button>`,`<button onclick="rel(${p.id})">Release</button>`],{cls:i<5?'st':''})))},
 sched(){const T=G.T[G.me],up=[],dn=T.rs;G.sch.forEach((r,i)=>{const g=r.find(x=>x.includes(G.me));if(i>=G.rd&&up.length<12)up.push([i+1,g[0]==G.me?'vs':'@',G.T[g[0]==G.me?g[1]:g[0]].n])});
 return`<h2>Schedule</h2>${ctl()}<h3>Upcoming</h3>${tb(['Game','','Opponent'],up)||''}<h3>Recent results</h3>${tb(['','Opponent','Score'],dn.map(r=>[r[3]?'vs':'@',G.T[r[0]].n,`<span class="${r[1]>r[2]?'gd':'rd'}">${r[1]>r[2]?'W':'L'} ${r[1]}-${r[2]}</span>`]).reverse())}`},
 stand(){const cf=[0,1].map(c=>G.T.filter(t=>t.id%2==c).sort(cmp)),po=G.po,sn=id=>G.T[id].n;
 return`<h2>Standings</h2>`+['East','West'].map((n,c)=>`<h3>${n}ern Conference</h3>`+tb(['#','Team','W','L','PCT','PF','PA','DIFF','Streak'],cf[c].map((t,i)=>Object.assign([i+1,logo(t)+` <a onclick="UI.ts=${t.id};go('tstats');scrollTo(0,0)">${t.n}</a>`,t.w,t.l,(t.w/(t.w+t.l||1)).toFixed(3),t.pf,t.pa,t.pf-t.pa,t.sk?sg(t.sk):'-'],{cls:t.id==G.me?'st':''})))).join('')+
-(po?`<h3>Play-in (single games)</h3>${po.pi.map(x=>`<div class=msg>${x}</div>`).join('')}<h3>Playoffs (best of 7)</h3>${[1,2,3,4].map(r=>{const s=po.ser.filter(s=>s.r==r);return s.length?`<b>${['Round 1','Semifinals','Conference Finals','Finals'][r-1]}</b>`+s.map(s=>`<div class=msg ${s.a==G.me||s.b==G.me?'style="border-color:var(--gd)"':''}>${sn(s.a)} <b>${s.wa}</b> – <b>${s.wb}</b> ${sn(s.b)}${s.done?` ✔ ${sn(s.w)}`:''}</div>`).join(''):''}).join('')}${po.champ?`<h2>🏆 ${sn(po.champ)}</h2>`:''}`:'')+(G.hist.length?`<h3>Champions</h3>${G.hist.map(h=>`${h.season}: ${sn(h.champ)}`).join('<br>')}`:'')},
+(po?`<h3>Play-in (single games)</h3>${po.pi.map(x=>`<div class=msg>${x}</div>`).join('')}<h3>Playoffs (best of 7)</h3>${[1,2,3,4].map(r=>{const s=po.ser.filter(s=>s.r==r);return s.length?`<b>${['Round 1','Conference Semifinals','Conference Finals','Championship'][r-1]}</b>`+s.map(s=>`<div class=msg ${s.a==G.me||s.b==G.me?'style="border-color:var(--gd)"':''}>${sn(s.a)} <b>${s.wa}</b> – <b>${s.wb}</b> ${sn(s.b)}${s.done?` ✔ ${sn(s.w)}`:''}</div>`).join(''):''}).join('')}${po.champ!=null?`<h2>🏆 ${sn(po.champ)}</h2>`:''}`:'')+(G.hist.length?`<h3>Champions</h3>${G.hist.map(h=>`${h.season}: ${sn(h.champ)}`).join('<br>')}`:'')},
 match(){const r=UI.last;if(!r)return`<h2>Match Center</h2>${ctl()}<p class=dim>Play a game to see the court, play-by-play and box score.</p><h3>Inbox</h3>${msgbox()}`;
 const[h,a]=r.t,pg=r.S.flatMap(s=>s.bx).sort((x,y)=>(y.pts+y.reb+y.ast+y.stl+y.blk)-(x.pts+x.reb+x.ast+x.stl+x.blk))[0],box=i=>tb(['Player','MIN','PTS','REB','AST','STL','BLK','FG','3P','FT','TO'],r.S[i].bx.filter(b=>b.m>.5).map(b=>[pln(b.p),b.m.toFixed(0),b.pts,b.reb,b.ast,b.stl,b.blk,b.fgm+'-'+b.fga,b.tpm+'-'+b.tpa,b.ftm+'-'+b.fta,b.to]));
 return`<h2>Match Center</h2>${ctl()}<div class=cv><div><div class=sb id=sb></div><canvas id=cv width=320 height=180></canvas><div class=bar><button onclick="UI.k=0;watch()">↺ Replay</button><button onclick="clearInterval(UI.iv);UI.k=r_end();draw()">⏭ Skip to end</button><label>Speed <input type=range min=1 max=10 value=${UI.spd||4} style="width:160px;padding:0" oninput="UI.spd=+this.value;$('#spl').textContent=this.value"> <b id=spl>${UI.spd||4}</b>/10</label></div></div><div><h3>Play-by-play</h3><div id=pb></div><h3>Locker room</h3>${msgbox()}</div></div>
 <div class=pn style=margin-top:10px>⭐ Player of the game: <b>${pln(pg.p)}</b> — ${pg.pts} PTS, ${pg.reb} REB, ${pg.ast} AST, ${pg.stl} STL, ${pg.blk} BLK</div><h3>Line score</h3>${tb(['Team',...r.ls[0].map((_,i)=>i<4?'Q'+(i+1):'OT'+(i-3)),'T'],[0,1].map(i=>[G.T[r.t[i]].n,...r.ls[i],`<b>${r.sc[i]}</b>`]))}<h3>${G.T[h].n}</h3>${box(0)}<h3>${G.T[a].n}</h3>${box(1)}`},
-trade(){if(UI.tt==G.me)UI.tt=(G.me+1)%G.T.length;const T=G.T[UI.tt],mp=mine(),tpl=tp(UI.tt),ck=(l,id,s)=>`<label><input type=checkbox style="width:auto" ${UI[s].includes(id)?'checked':''} onchange="tg('${s}',${id})"> `;
-const inV=UI.mine.reduce((s,i)=>s+val(G.P.find(p=>p.id==i),T),0),outV=UI.theirs.reduce((s,i)=>s+val(G.P.find(p=>p.id==i),T),0),rt=outV?inV/outV:UI.mine.length?9:0;
-const fnd=UI.tf?tb(['Player','Team','OVR','Age','Salary',''],UI.tf.map(p=>[pln(p),G.T[p.tid].n,p.ovr,p.age,'$'+p.sal+'M',`<button onclick="UI.tt=${p.tid};UI.theirs=[${p.id}];render()">Select</button>`])):'';
-return`<h2>Trades</h2><div class=bar>Trade with <select onchange="UI.tt=+this.value;UI.theirs=[];render()">${G.T.filter(t=>t.id!=G.me).map(t=>`<option value=${t.id} ${t.id==UI.tt?'selected':''}>${t.n} (${to(t.id)})`).join('')}</select> <span class=dim>${T.st} · AI interest:</span> <span class=bar2 style="width:${C(rt*60,4,140)}px"></span> <b class="${rt>=[1,1.1,1.25][G.diff]?'gd':'rd'}">${rt>=[1,1.1,1.25][G.diff]?'Likely accept':'Likely reject'}</b></div>
-<div class=g3><div class=pn><b>You send</b>${mp.map(p=>`<div>${ck(0,p.id,'mine')}${p.pos} ${p.n} ${p.ovr}/${fz(p)} $${p.sal}M</label></div>`).join('')}</div><div class=pn><b>You receive</b>${tpl.map(p=>`<div>${ck(0,p.id,'theirs')}${p.pos} ${p.n}${p.star?' ★':''} ${p.ovr}/${fz(p)} $${p.sal}M</label></div>`).join('')}</div></div>
-<div class=bar><button onclick="prop()">Propose trade</button><button onclick="finder()">Trade finder (for first selected player of yours)</button></div>${fnd}`},
+trade(){if(UI.tt==G.me)UI.tt=(G.me+1)%G.T.length;const hasP=(i,t)=>{const p=G.P.find(x=>x.id==i);return p&&p.tid==t},hasK=(i,t)=>{const k=pkOf(i);return k&&k.t==t&&trk(k)};
+UI.mine=UI.mine.filter(i=>hasP(i,G.me));UI.theirs=UI.theirs.filter(i=>hasP(i,UI.tt));UI.mpk=(UI.mpk||[]).filter(i=>hasK(i,G.me));UI.tpk=(UI.tpk||[]).filter(i=>hasK(i,UI.tt));
+const T=G.T[UI.tt],mp=mine(),tpl=tp(UI.tt),cb=(id,s,dis)=>`<label><input type=checkbox style="width:auto" ${UI[s].includes(id)?'checked':''} ${dis?'disabled':''} onchange="tg('${s}',${id})"> `,
+[iv,ov,th]=trVal(UI.tt,UI.mine,UI.theirs,UI.mpk,UI.tpk),rt=ov?iv/ov:(iv>0?9:0),ok=rt>=th,
+myk=G.pk.filter(k=>k.t==G.me&&trk(k)),thk=G.pk.filter(k=>k.t==UI.tt&&trk(k)),pend=(G.tq||[]).filter(q=>q.t==G.me),
+fnd=UI.tf?tb(['Player','Team','OVR','Age','Salary',''],UI.tf.map(p=>[pln(p),G.T[p.tid].n,p.ovr,p.age,'$'+p.sal+'M',`<button onclick="UI.tt=${p.tid};UI.theirs=[${p.id}];UI.tpk=[];render()">Select</button>`])):'';
+return`<h2>Trades</h2><p class=dim>Offers land in the other team's inbox and are answered after the next game day: accept, decline, or a counter-offer. Player mood matters, and 5 rejections on one player freeze talks about him for a month (${MONTH} game days).</p>
+<div class=bar>Trade with <select onchange="UI.tt=+this.value;UI.theirs=[];UI.tpk=[];render()">${G.T.filter(t=>t.id!=G.me).map(t=>`<option value=${t.id} ${t.id==UI.tt?'selected':''}>${esc(t.n)} (${to(t.id)})`).join('')}</select> <span class=dim>${T.st} · AI interest:</span> <span class=bar2 style="width:${C(rt*60,4,140)}px"></span> <b class="${ok?'gd':'rd'}">${ok?'Likely accept':'Likely reject'}</b></div>
+<div class=g3><div class=pn><b>You send</b>${mp.map(p=>`<div>${cb(p.id,'mine')}${p.pos} ${esc(p.n)} ${p.ovr}/${fz(p)} $${p.sal}M <span class=dim>mood ${Math.round(p.mor)}</span></label></div>`).join('')}<br><b>Your picks</b>${myk.length?myk.map(k=>`<div>${cb(k.id,'mpk')}${esc(pkn(k))}</label></div>`).join(''):'<div class=dim>No tradable picks</div>'}</div>
+<div class=pn><b>You receive</b>${tpl.map(p=>{const l=lockLeft(p.id);return`<div>${cb(p.id,'theirs',l)}${p.pos} ${esc(p.n)}${p.star?' ★':''} ${p.ovr}/${fz(p)} $${p.sal}M <span class=dim>mood ${Math.round(p.mor)}</span>${l?` <span class=rd>🔒 ${l}d</span>`:''}</label></div>`}).join('')}<br><b>Their picks</b>${thk.length?thk.map(k=>`<div>${cb(k.id,'tpk')}${esc(pkn(k))}</label></div>`).join(''):'<div class=dim>No tradable picks</div>'}</div></div>
+<div class=bar><button onclick="prop()">Send offer</button><button onclick="finder()">Trade finder (for first selected player of yours)</button></div>${fnd}
+${pend.length?'<h3>Offers waiting for an answer</h3>'+tb(['To','You send','You get',''],pend.map(q=>[esc(G.T[q.tid].n),esc(dsc(q.m,q.pm)),esc(dsc(q.h,q.pt)),`<button onclick="viaH('withdrawOff',[${q.id}])">Withdraw</button>`])):''}`},
 fa(){const l=G.P.filter(p=>p.tid<0).sort((a,b)=>b.ovr-a.ovr).slice(0,40);return`<h2>Free agency</h2><p class=dim>Payroll $${pay(G.me)}M · cap $${cap(G.T[G.me])}M · roster ${mine().length}/15. Offers below a player's demand are refused; contenders pay a bit less.</p>`+tb(['Player','Pos','Age','OVR','POT','Mood type','Asks','Offer $M','Yrs',''],l.map(p=>[pln(p),p.pos,p.age,p.ovr,fz(p),p.pe,'$'+ask(p)+'M',`<input id=o${p.id} value=${ask(p)}>`,`<select id=y${p.id}><option>1<option selected>2<option>3<option>4</select>`,`<button onclick="sign(${p.id})">Sign</button>`]))},
 search(){const f=UI.f,l=G.P.filter(p=>(!f.q||p.n.toLowerCase().includes(f.q.toLowerCase()))&&(!f.pos||p.pos==f.pos)&&(!f.min||p.ovr>=f.min)&&(!f.age||p.age<=f.age)&&(!f.tm||(f.tm=='fa'?p.tid<0:p.tid==f.tm))&&(!f.st||p.star>=f.st)).sort((a,b)=>UI.sk=='age'?a.age-b.age:UI.sk=='sal'?b.sal-a.sal:UI.sk=='pot'?b.pot-a.pot:b.ovr-a.ovr).slice(0,40),i=(k,pl,w)=>`<input placeholder="${pl}" value="${f[k]||''}" style="width:${w||80}px" onchange="UI.f.${k}=${k=='q'?'this.value':'+this.value||0'};render()">`;
 return`<h2>Player search</h2><div class=bar>${i('q','Name',110)}<select onchange="UI.f.pos=this.value;render()"><option value="">Any pos${POS.map(p=>`<option ${f.pos==p?'selected':''}>${p}`).join('')}</select>${i('min','Min OVR')}${i('age','Max age')}<select onchange="UI.f.tm=this.value=='fa'?'fa':+this.value;render()"><option value="">Any team<option value=fa ${f.tm=='fa'?'selected':''}>Free agents${G.T.map(t=>`<option value=${t.id} ${f.tm===t.id?'selected':''}>${t.n}`).join('')}</select><select onchange="UI.f.st=+this.value;render()"><option value=0>All players<option value=1 ${f.st==1?'selected':''}>Superstars+<option value=2 ${f.st==2?'selected':''}>XStars</select><select onchange="UI.sk=this.value;render()">${['ovr','pot','age','sal'].map(k=>`<option ${UI.sk==k?'selected':''}>${k}`).join('')}</select></div>`+tb(['Player','Team','Pos','Age','OVR','POT','Salary','Yrs'],l.map(p=>[pln(p),p.tid<0?'FA':G.T[p.tid].n,p.pos,p.age,p.ovr,fz(p),'$'+p.sal+'M',p.yrs]))},
@@ -377,20 +411,24 @@ fin(){const T=G.T[G.me],p=pay(G.me),ex=Math.max(0,p-TAX)*1.5;return`<h2>Finances
 lstats(){const c=UI.lc||'pts',g=Math.max(1,Math.ceil(G.rd/2)),pg=p=>c=='fg'?(p.st.fgm/(p.st.fga||1)*100):c=='tp'?(p.st.tpm/(p.st.tpa||1)*100):c=='eff'?(p.st.pts+p.st.reb+p.st.ast+p.st.stl+p.st.blk-(p.st.fga-p.st.fgm)-p.st.to)/(p.st.g||1):p.st[c]/(p.st.g||1),
 l=G.P.filter(p=>p.st.g>=g).sort((a,b)=>pg(b)-pg(a)).slice(0,15);return`<h2>League leaders</h2><div class=bar>${[['pts','PPG'],['reb','RPG'],['ast','APG'],['stl','SPG'],['blk','BPG'],['fg','FG%'],['tp','3P%'],['eff','EFF']].map(([k,n])=>`<button class="${c==k?'on':''}" style="${c==k?'background:var(--ac);color:#000':''}" onclick="UI.lc='${k}';render()">${n}</button>`).join('')}</div>${l.length?tb(['#','Player','Team','GP',c.toUpperCase()],l.map((p,i)=>[i+1,pln(p),G.T[p.tid]?G.T[p.tid].n:'FA',p.st.g,pg(p).toFixed(1)])):'<p class=dim>Play some games first.</p>'}<h3>Career records</h3>${tb(['Player','Career PTS','Career GP'],G.P.filter(p=>p.cr.g).sort((a,b)=>b.cr.pts-a.cr.pts).slice(0,5).map(p=>[pln(p),p.cr.pts,p.cr.g]))||''}`},
 tstats(){const k=UI.tsk,gp=t=>t.w+t.l||1,rw=G.T.map(t=>({t,o:to(t.id),ppg:t.pf/gp(t),opp:t.pa/gp(t),w:t.w/gp(t)})),s=[...rw].sort((a,b)=>k=='opp'?a.opp-b.opp:b[k]-a[k]),tm=G.T[UI.ts==null?G.me:UI.ts],n=gp(tm),ps=tp(tm.id).sort((a,b)=>b.ovr-a.ovr),cf=G.T.filter(t=>t.id%2==tm.id%2).sort(cmp).indexOf(tm)+1,f=(a,b)=>b?(a/b*100).toFixed(1):'-',hc=tm.sf.HC;
-return`<h2>${logo(tm)} ${tm.n}</h2><div class=g3><div class=pn>Record <b class=px style="font-size:18px">${tm.w}-${tm.l}</b><br>${tm.id%2?'West':'East'}ern Conf #${cf} · Power rank #${rank(tm.id)} · OVR ${to(tm.id)}<br>Streak ${tm.sk?sg(tm.sk):'-'} · Last 10: ${tm.rs.map(r=>`<span class="${r[1]>r[2]?'gd':'rd'}">${r[1]>r[2]?'W':'L'}</span>`).join(' ')||'—'}</div><div class=pn>PPG ${(tm.pf/n).toFixed(1)} · Opp ${(tm.pa/n).toFixed(1)} · Diff ${tm.pf-tm.pa}<br>Style: ${tm.st}<br>Champions: ${G.hist.filter(h=>h.champ==tm.id).length}x</div><div class=pn>Payroll $${pay(tm.id)}M<br>Head coach ${hc.n} (${hc.ovr})<br>${tm.id==G.me?'<b class=gd>Your team</b>':''}</div></div>
+return`<h2>${logo(tm)} ${tm.n}</h2><div class=g3><div class=pn>Record <b class=px style="font-size:18px">${tm.w}-${tm.l}</b><br>${tm.id%2?'West':'East'}ern Conf #${cf} · Power rank #${rank(tm.id)} · OVR ${to(tm.id)}<br>Streak ${tm.sk?sg(tm.sk):'-'} · Last 10: ${tm.rs.map(r=>`<span class="${r[1]>r[2]?'gd':'rd'}">${r[1]>r[2]?'W':'L'}</span>`).join(' ')||'—'}</div><div class=pn>PPG ${(tm.pf/n).toFixed(1)} · Opp ${(tm.pa/n).toFixed(1)} · Diff ${tm.pf-tm.pa}<br>Style: ${tm.st}<br>Champions: ${G.hist.filter(h=>h.champ==tm.id).length}x · Conf titles: ${G.hist.filter(h=>(h.cw||[]).includes(tm.id)).length}x · Div titles: ${G.hist.filter(h=>(h.dw||[]).includes(tm.id)).length}x</div><div class=pn>Payroll $${pay(tm.id)}M<br>Head coach ${hc.n} (${hc.ovr})<br>${tm.id==G.me?'<b class=gd>Your team</b>':''}</div></div>
 <h3>Players &amp; stats (click a name for the full profile)</h3>`+tb(['Player','Pos','Age','OVR','GP','MPG','PPG','RPG','APG','SPG','BPG','FG%','3P%'],ps.map(p=>{const q=p.st,g=q.g||1;return[pln(p),p.pos,p.age,p.ovr,q.g,(q.min/g).toFixed(1),(q.pts/g).toFixed(1),(q.reb/g).toFixed(1),(q.ast/g).toFixed(1),(q.stl/g).toFixed(1),(q.blk/g).toFixed(1),f(q.fgm,q.fga),f(q.tpm,q.tpa)]}))+`<h3>All teams <span class=dim>(click a team)</span></h3><div class=bar>Sort <select onchange="UI.tsk=this.value;render()">${[['w','Win %'],['o','OVR'],['ppg','Points'],['opp','Points allowed']].map(([v,nn])=>`<option value=${v} ${k==v?'selected':''}>${nn}`).join('')}</select></div>`+tb(['#','Team','OVR','W-L','PPG','OPP'],s.map((r,i)=>Object.assign([i+1,`<a onclick="UI.ts=${r.t.id};render();scrollTo(0,0)">${r.t.n}</a>`,r.o,r.t.w+'-'+r.t.l,r.ppg.toFixed(1),r.opp.toFixed(1)],{cls:r.t.id==tm.id?'st':''})))},
 ach(){return`<h2>Achievements</h2>${achList(G.ach)}`}};
 /* ---------- ACTIONS ---------- */
 function mv(id,d){const o=G.T[G.me].ord,i=o.indexOf(id),j=i+d;if(j<0||j>=o.length)return;[o[i],o[j]]=[o[j],o[i]];render()}
 function rel(id){if(mine().length<=10)return toast('Keep at least 10 players.');const p=G.P.find(x=>x.id==id);if(confirm('Release '+p.n+'?')){p.tid=-1;p.tr=0;syncOrd();render()}}
 function tg(s,id){const a=UI[s],i=a.indexOf(id);i<0?a.push(id):a.splice(i,1);render()}
-function prop(){const e=okTrade(UI.tt,UI.mine,UI.theirs);if(e)return toast(e);doTrade(UI.tt,UI.mine,UI.theirs);UI.mine=[];UI.theirs=[];ck();sv();toast('Trade completed');render()}
+function prop(){const mp=UI.mpk||[],tk=UI.tpk||[],e=trChk(UI.tt,UI.mine,UI.theirs,mp,tk);if(e)return toast(e);const T=G.T[UI.tt];
+ if((G.tq||[]).some(q=>q.t==G.me&&q.tid==UI.tt))return toast('You already have an offer waiting with '+T.n+'. Withdraw it or wait for the answer.');
+ G.tq=G.tq||[];G.tq.push({id:G.noff=(G.noff||0)+1,t:G.me,tid:UI.tt,m:[...UI.mine],h:[...UI.theirs],pm:[...mp],pt:[...tk],due:(G.gd||0)+1});
+ mail('Offer sent to '+T.n,'You offered '+dsc(UI.mine,mp)+' for '+dsc(UI.theirs,tk)+'. Their answer arrives after the next game day.','Offer',G.me);
+ UI.mine=[];UI.theirs=[];UI.mpk=[];UI.tpk=[];sv();toast('Offer sent to '+T.n+'. Watch your mailbox.');render()}
 function finder(){const m=G.P.find(p=>p.id==UI.mine[0]);if(!m)return toast('Select one of your players first.');const l=[];G.P.forEach(q=>{if(q.tid>=0&&q.tid!=G.me&&q.ovr>=m.ovr-8&&!okTrade(q.tid,[m.id],[q.id]))l.push(q)});UI.tf=l.sort((a,b)=>b.ovr-a.ovr).slice(0,8);if(!UI.tf.length)toast('No AI team would make a fair swap.');render()}
 function sign(id){const p=G.P.find(x=>x.id==id),T=G.T[G.me],off=+$('#o'+id).value,y=+$('#y'+id).value,e=signChk(p,off,y,T);if(e)return toast(e);p.tid=G.me;p.sal=off;p.yrs=y;p.mor=Math.max(p.mor,70);if(p.star==1)G.k.sg=1;if(p.star==2)G.k.xs=1;syncOrd();ck();sv();toast(p.n+' signed');render()}
 function fire(r){if(confirm('Fire '+RL[r]+'?')){const T=G.T[G.me];T.sf[r]={n:'Interim',age:50,ex:0,ovr:40,sal:.3,sp:'None',yrs:1};render()}}
 function hire(i){const c=G.cp[i],T=G.T[G.me],o=T.sf[c.r];if(staff(T)-o.sal+c.sal>14+(T.rich?8:0))return toast('Over your staff budget.');o.r=c.r;T.sf[c.r]=c;G.cp[i]=o.n=='Interim'?Object.assign(mkC(0),{r:c.r}):o;render()}
 function ext(id){const p=G.P.find(x=>x.id==id);if(p.mor<40||p.tr)return toast(p.n+' refuses to talk.');p.sal=ask(p);p.yrs=I(2,4);toast(`${p.n} extended: $${p.sal}M × ${p.yrs}y`);sv();$('#md').style.display='none';render()}
-function prof(id){const p=G.P.find(x=>x.id==id),t=G.T[p.tid],s=p.st,c=p.cr,hi=p.hi||{},f=(a,b)=>b?(a/b*100).toFixed(1):'-',
+function prof(id){const p=G.P.find(x=>x.id==id);if(!p)return toast('That player has retired or left the league.');const t=G.T[p.tid],s=p.st,c=p.cr,hi=p.hi||{},f=(a,b)=>b?(a/b*100).toFixed(1):'-',
 grp=[['Offense',['cs','mr','three','ft','lay','dnk']],['Playmaking',['hnd','pas','oiq','sel']],['Defense',['pd','id','stl','blk','diq','dc']],['Athleticism',['spd','acc','str','vert','sta','agi']],['Mental',['biq','clu','con','tw','ld','reb']]],
 av=ks=>Math.round(ks.reduce((q,k)=>q+p.a[k],0)/ks.length),so=[...ATT].sort((x,y)=>p.a[y[0]]-p.a[x[0]]),col=v=>v>=80?'var(--gd)':v>=65?'var(--ac)':'var(--rd)',
 row=(l,q)=>{const g=q.g||1;return[l,q.g,(q.min/g).toFixed(1),(q.pts/g).toFixed(1),(q.reb/g).toFixed(1),(q.ast/g).toFixed(1),(q.stl/g).toFixed(1),(q.blk/g).toFixed(1),f(q.fgm,q.fga),f(q.tpm,q.tpa),f(q.ftm,q.fta),(q.to/g).toFixed(1)]},
@@ -461,13 +499,19 @@ function pOffer(to,give,get){const tid=to==ON.hostName?ON.hm:ON.own2[to];
  if(!ON.room||ON.mode!='fight'||tid==null||tid==G.me||!ON.mem.some(m=>m.name==to))return toast('You can only trade with players in your Fight room');
  const a=G.P.find(p=>p.id==give),b=G.P.find(p=>p.id==get);if(!a||!b||a.tid!=G.me||b.tid!=tid)return toast('Pick one player from each team');
  mail('Trade offer from '+G.T[G.me].n,G.T[G.me].n+' offer '+nm(a)+' ('+a.ovr+') for '+nm(b)+' ('+b.ovr+').','Offer',tid,{from:G.me,give:get,get:give,hum:1});toast('Offer sent to '+to)}
-function tradeAct(mid,yes){const m=inbox().find(x=>x.id==mid),o=m&&m.o;if(!o||o.done)return toast('Offer no longer available');o.done=yes?1:2;
- if(yes){const a=G.P.find(p=>p.id==o.give),b=G.P.find(p=>p.id==o.get);
-  if(!a||!b||a.tid!=G.me||b.tid!=o.from){o.done=2;return toast('Players have moved. Trade void.')}
-  a.tid=o.from;b.tid=G.me;a.tr=0;b.tr=0;const m0=G.me;[m0,o.from].forEach(t=>{G.me=t;try{syncOrd()}catch(e){}});G.me=m0;
-  mail('Trade done',nm(b)+' joins you for '+nm(a)+'.','News');if(o.hum)mail('Trade accepted',G.T[m0].n+' took your offer: '+nm(a)+' for '+nm(b)+'.','News',o.from)}
- else if(o.hum)mail('Trade declined',G.T[G.me].n+' turned down your offer.','News',o.from);toast(yes?'Trade completed':'Offer declined')}
-WL.push('pOffer','tradeAct');
+function tradeAct(mid,yes){const m=inbox().find(x=>x.id==mid),o=m&&m.o;if(!o||o.done)return toast('Offer no longer available');
+ const gv=[].concat(o.give==null?[]:o.give),gt=[].concat(o.get==null?[]:o.get),pg=o.pg||[],pt=o.pt||[],me=G.me;
+ if(!yes){o.done=2;if(!o.hum&&!o.ct)gv.forEach(i=>rjAdd(i));if(o.hum)mail('Trade declined',G.T[me].n+' turned down your offer.','News',o.from);return toast('Offer declined')}
+ const a=gv.map(i=>G.P.find(p=>p.id==i)),b=gt.map(i=>G.P.find(p=>p.id==i));
+ const ok=a.every(p=>p&&p.tid==me)&&b.every(p=>p&&p.tid==o.from)&&pg.every(i=>{const k=pkOf(i);return k&&k.t==me&&trk(k)})&&pt.every(i=>{const k=pkOf(i);return k&&k.t==o.from&&trk(k)});
+ if(!ok){o.done=2;return toast('Players or picks have moved. Trade void.')}
+ const c2=tp(me).length,n2=c2-a.length+b.length;if(n2<10||(n2>15&&n2>c2))return toast('Roster sizes must stay between 10 and 15. Adjust your roster first.');
+ o.done=1;a.forEach(p=>{p.tid=o.from;p.tr=0});b.forEach(p=>{p.tid=me;p.tr=0;if(p.star==1)G.k.sg=1;if(p.star==2)G.k.xs=1});pg.forEach(i=>pkOf(i).t=o.from);pt.forEach(i=>pkOf(i).t=me);G.k.tr++;
+ [me,o.from].forEach(t=>{G.me=t;try{syncOrd()}catch(e){}});G.me=me;ck();
+ mail('Trade done','You received '+dsc(gt,pt)+' for '+dsc(gv,pg)+'.','News');
+ if(o.hum)mail('Trade accepted',G.T[me].n+' took your offer.','News',o.from);toast('Trade completed')}
+function negot(id){const m=inbox().find(x=>x.id==id),o=m&&m.o;if(!o||o.done)return toast('Offer no longer available');o.done=3;UI.tt=o.from;UI.mine=[].concat(o.give==null?[]:o.give);UI.theirs=[].concat(o.get==null?[]:o.get);UI.mpk=[...(o.pg||[])];UI.tpk=[...(o.pt||[])];UI.v='trade';sv();toast('Edit the offer, then send your counter');render()}
+WL.push('pOffer','tradeAct','withdrawOff','drAutoMe');
 /* ---------- v3: facilities, sponsors, events, awards, history ---------- */
 const DIVN=['Atlantic','Pacific','Central','Mountain'],SPN=['PixelPop','HoopCola','DunkBank','Ballr Shoes','Net Energy','Hardwood Auto','CourtVision TV','Swish Mobile'];
 const FAC={arena:['Arena','+8% home revenue per level'],train:['Training center','Better player progression each offseason']};
@@ -498,12 +542,25 @@ mail('🏆 Season '+G.season+' awards',L.join(' · '),'Awards');['mvp','dpoy','r
 const _aw=aiWeek;aiWeek=function(){_aw();aiExtra()};
 function aiExtra(){G.T.forEach(T=>{if(T.id==G.me)return;T.fac=T.fac||{arena:0,train:0};const b=bk0(T);['arena','train'].forEach(k=>{const c=6+5*T.fac[k];if(T.fac[k]<5&&b>c+6&&Math.random()<.04){T.bk=b-c;T.fac[k]++}});
 tp(T.id).forEach(p=>{if(p.yrs==1&&p.ovr>70&&Math.random()<.05){p.yrs=I(2,4);p.sal=ask(p)}})});
-if(Math.random()<.2&&inbox().filter(m=>m.k=='Offer'&&!(m.o&&m.o.done)).length<3){const a=P(G.T);if(a.id!=G.me){const y=P(tp(a.id)),x=P(mine());if(x&&y&&y.star!=2&&!x.tr&&val(x,a)>val(y,a)*1.06&&Math.abs(x.sal-y.sal)<14)mail('Trade offer from '+a.n,a.n+' offer '+nm(y)+' ('+y.ovr+') for '+nm(x)+' ('+x.ovr+').','Offer',null,{from:a.id,give:x.id,get:y.id,hum:0})}}}
-function simSeasons(n){if(ON.room&&!ON.host)return toast('Only the host can sim seasons');if(!confirm('Sim '+n+' season(s)? Your expiring players rated above 55 are re-signed automatically.'))return;
-const cf=window.confirm,ts=toast;window.confirm=()=>true;toast=()=>{};let done=0;try{for(let i=0;i<n;i++){if(G.rd<62)sd(62-G.rd);if(G.po&&!G.po.champ)pd(99);if(!(G.po&&G.po.champ))break;mine().filter(p=>p.yrs<=1&&p.ovr>55).forEach(p=>{p.yrs=I(2,4);p.sal=ask(p)});nextSeason();done++}}catch(e){console.error(e)}finally{window.confirm=cf;toast=ts}
-UI.v='hist';toast('Simulated '+done+' season(s)');render();if(ON.host&&ON.room)bc()}
+if(Math.random()<.2&&inbox().filter(m=>m.k=='Offer'&&!(m.o&&m.o.done)).length<3){const a=P(G.T);if(a.id!=G.me){const y=P(tp(a.id)),x=P(mine());if(x&&y&&y.star!=2&&!x.tr&&!lockLeft(x.id)&&wants(x,a.id)&&wants(y,G.me)&&val(x,a)>val(y,a)*1.06&&Math.abs(x.sal-y.sal)<14)mail('Trade offer from '+a.n,a.n+' offer '+nm(y)+' ('+y.ovr+') for '+nm(x)+' ('+x.ovr+').','Offer',null,{from:a.id,give:x.id,get:y.id,hum:0})}}}
+function simSeasons(n){if(ON.room&&!ON.host)return toast('Only the host can sim seasons');if(!chkReady())return;if(!confirm('Sim '+n+' season(s)? Your expiring players rated above 55 are re-signed automatically and the draft is auto-picked between seasons.'))return;
+ const cf=window.confirm,ts=toast,sn=SND;window.confirm=()=>true;toast=()=>{};SND=false;BULK=1;let done=0;
+ try{for(let i=0;i<n;i++){if(G.dd){drAll();autoRoster()}
+  if(G.rd<62)sd(62-G.rd);if(G.po&&G.po.champ==null)pd(99);if(!(G.po&&G.po.champ!=null))break;
+  mine().filter(p=>p.yrs<=1&&p.ovr>55).forEach(p=>{p.yrs=I(2,4);p.sal=ask(p)});nextSeason();done++}}
+ catch(e){console.error(e)}finally{window.confirm=cf;toast=ts;SND=sn;BULK=0}
+ UI.v=G.dd?'draft':'hist';toast('Simulated '+done+' season(s)'+(G.dd?'. Draft the new class to start the next season.':''));render();if(ON.host&&ON.room)bc()}
 VW.fac=()=>{const T=G.T[G.me],f=T.fac=T.fac||{arena:0,train:0};return`<h2>Facilities &amp; Sponsors</h2><p>Bank: <b>$${bank(T)}M</b> <span class=dim>(past profits plus this season so far)</span></p><div class=g3>${Object.keys(FAC).map(k=>`<div class=pn><b>${FAC[k][0]}</b> level ${f[k]}/5<br><span class=dim>${FAC[k][1]}</span><br>${f[k]<5?`<button onclick="viaH('buyFac',['${k}'])">Upgrade · $${6+5*f[k]}M</button>`:'<b class=gd>Max</b>'}</div>`).join('')}</div><h3>Sponsor</h3>${T.sp?`<div class=pn><b>${esc(T.sp.n)}</b> · $${T.sp.p}M per season · ${T.sp.y} season(s) left. Shown on the court in matches.</div>`:'<p class=dim>No sponsor right now.</p>'}<h3>Offers</h3>${(G.spo||[]).length?tb(['Sponsor','$M / season','Seasons',''],G.spo.map((o,i)=>[esc(o.n),o.p,o.y,`<button onclick="viaH('signSp',[${i}])">Sign</button>`])):'<p class=dim>No offers yet. They arrive as events in your mailbox.</p>'}`};
-VW.hist=()=>{const w=a=>a?`<a onclick="prof(${a.id||0})">${esc(a.n)}</a>`:'—';return`<h2>Season history</h2><div class=bar><b>Sim seasons:</b> ${[1,3,5,10].map(n=>`<button onclick="simSeasons(${n})">${n}</button>`).join('')}</div><p class=dim>Plays the rest of this season, the playoffs and the offseason with no stops. Your expiring players rated above 55 are re-signed automatically.</p>`+(G.hist.length?tb(['Season','Champion','Runner-up','Your record','MVP','Defense','Rookie','Scoring','Coach'],[...G.hist].reverse().map(h=>{const a=h.aw||{};return[h.season,esc(h.tn||(G.T[h.champ]||{}).n),esc(h.fin||''),h.rec||'',w(a.mvp),w(a.dpoy),w(a.roy),w(a.sc),a.coy?esc(a.coy.n):'—']})):'<p class=dim>No finished seasons yet.</p>')};
+VW.hist=()=>{const w=a=>a?`<a onclick="prof(${a.id||0})">${esc(a.n)}</a>`:'—',H=[...G.hist].reverse(),tl={},add=(id,k)=>{if(id==null)return;(tl[id]=tl[id]||{c:0,f:0,d:0})[k]++};
+G.hist.forEach(h=>{add(h.champ,'c');(h.cw||[]).forEach(i=>add(i,'f'));(h.dw||[]).forEach(i=>add(i,'d'))});
+const rows=Object.entries(tl).sort((x,y)=>y[1].c-x[1].c||y[1].f-x[1].f||y[1].d-x[1].d).slice(0,15),sh=x=>esc(String(x||'—').split(' ').pop());
+return`<h2>Season history</h2><div class=bar><b>Sim seasons:</b> ${[1,3,5,10].map(n=>`<button onclick="simSeasons(${n})">${n}</button>`).join('')}</div><p class=dim>Plays the rest of this season, the playoffs and the offseason. The draft is auto-picked for seasons in between, and your expiring players rated above 55 are re-signed. The last sim stops at the draft so you pick yourself.</p>`+(H.length?tb(['Season','Champion','Runner-up','East champ','West champ','Division winners','Your record','MVP','Defense','Rookie','Scoring','Coach'],H.map(h=>{const a=h.aw||{},cn=h.cn||[];return[h.season,esc(h.tn||(G.T[h.champ]||{}).n),esc(h.fin||''),esc(cn[0]||'—'),esc(cn[1]||'—'),(h.dn||[]).map((x,i)=>DIVN[i].slice(0,3)+' '+sh(x)).join(' · ')||'—',h.rec||'',w(a.mvp),w(a.dpoy),w(a.roy),w(a.sc),a.coy?esc(a.coy.n):'—']})):'<p class=dim>No finished seasons yet.</p>')+(rows.length?`<h3>Title count</h3><p class=dim>A conference title counts for the team that wins its conference, champions included.</p>`+tb(['Team','Championships','Conference titles','Division titles'],rows.map(([id,v])=>[esc((G.T[id]||{}).n||'?'),v.c,v.f,v.d])):'')};
+VW.bracket=()=>{const po=G.po,sn=id=>G.T[id].n;
+if(!po){const cf=[0,1].map(c=>G.T.filter(t=>t.id%2==c).sort(cmp).slice(0,10));return`<h2>Playoffs</h2><p class=dim>The bracket appears once the 62-game season ends. Seeds 1-4 in each conference advance directly; seeds 5-10 fight through the play-in. Current top 10:</p><div class=g3>${['Eastern','Western'].map((n,c)=>`<div class=pn><b>${n} Conference</b>${cf[c].map((t,i)=>`<div class="${t.id==G.me?'gd':''}">${i+1}. ${logo(t)} ${esc(t.n)} <span class=dim>${t.w}-${t.l}</span></div>`).join('')}</div>`).join('')}</div>`}
+const S=(r,c)=>po.ser.filter(s=>s.r==r&&(c==null||s.c==c)),
+card=s=>{const row=(id,w)=>`<div class="${id==G.me?'me ':''}${s.done&&s.w==id?'wn':''}"><span>${po.sd&&po.sd[id]?'<small class=dim>'+po.sd[id]+'</small> ':''}${esc(sn(id))}</span><b>${w}</b></div>`;return`<div class=sr>${row(s.a,s.wa)}${row(s.b,s.wb)}</div>`},
+col=(t,r,c)=>`<div class=bc><h4>${t}</h4>${S(r,c).map(card).join('')||'<div class="sr dim">TBD</div>'}</div>`,cw=po.cw;
+return`<h2>Playoffs ${G.season}</h2><p class=dim>Best-of-7 series. The winners of the Eastern and Western Conference Finals meet in the Championship. Scroll sideways on small screens.</p><div class=w><div class=br>${col('East Round 1',1,0)}${col('East Semifinals',2,0)}${col('Eastern Conf. Finals',3,0)}${col('Championship',4,null)}${col('Western Conf. Finals',3,1)}${col('West Semifinals',2,1)}${col('West Round 1',1,1)}</div></div>${cw?`<div class=pn>🏅 Eastern champions: <b>${esc(sn(cw[0]))}</b> · Western champions: <b>${esc(sn(cw[1]))}</b></div>`:''}${po.champ!=null?`<h2>🏆 ${esc(sn(po.champ))}</h2>`:''}<h3>Play-in (single games)</h3>${po.pi.map(x=>`<div class=msg>${esc(x)}</div>`).join('')}`};
 VW.div=()=>`<h2>Divisions</h2>`+[0,1,2,3].map(d=>`<h3>${DIVN[d]} Division <span class=dim>(${d%2?'West':'East'})</span></h3>`+tb(['#','Team','W-L','Diff'],G.T.filter(t=>t.id%4==d).sort(cmp).map((t,i)=>[i+1,logo(t)+' '+esc(t.n),t.w+'-'+t.l,t.pf-t.pa]))).join('');
 NAV.push(['div','Divisions'],['fac','Facilities'],['hist','History']);
 /* ---------- v4: world trade ---------- */
@@ -537,32 +594,45 @@ VW.mail=()=>{const L=inbox(),np='Notification' in window?Notification.permission
  const others=fr?ON.mem.filter(x=>x.name!=ON.name):[],tid=pt.to?(pt.to==ON.hostName?ON.hm:ON.own2[pt.to]):null;
  const op=(arr,v)=>'<option value="">-</option>'+arr.map(p=>`<option value="${esc(p.id)}" ${v==p.id?'selected':''}>${esc(nm(p))} (${p.ovr})</option>`).join('');
  const tp=fr?`<h3>Trade with a player</h3>${others.length?`<div class=bar><select onchange="UI.pt={to:this.value};render()"><option value="">Player...</option>${others.map(x=>`<option ${pt.to==x.name?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select onchange="UI.pt.give=this.value">${op(G.P.filter(p=>p.tid==G.me),pt.give)}</select><select onchange="UI.pt.get=this.value">${op(tid==null?[]:G.P.filter(p=>p.tid==tid),pt.get)}</select><button onclick="viaH('pOffer',[UI.pt.to,UI.pt.give,UI.pt.get])">Send offer</button></div>`:'<p class=dim>No other players in the room yet.</p>'}`:'';
- return`<h2>Mailbox</h2><div class=bar>${np=='granted'?'<span class=dim>Alerts on</span>':np=='denied'?'<span class=dim>Alerts blocked in browser settings</span>':'<button onclick="askNotif()">Enable alerts</button>'}${L.length?'<button onclick="L_=inbox().forEach(m=>READ.add(m.id));localStorage.setItem(\'pbl_read\',JSON.stringify([...READ].slice(-300)));render()">Mark all read</button>':''}</div>${tp}<div class=mb>${L.length?L.map(m=>`<div class="mi ${READ.has(m.id)?'':'u'}" onclick="openMail('${m.id}')"><small>${esc(m.k)} &middot; Game ${m.rd}${m.o?(m.o.done==1?' &middot; accepted':m.o.done==2?' &middot; declined':''):''}</small><b>${esc(m.h)}</b>${UI.mo==m.id?`<span>${esc(m.b)}</span>${m.o&&!m.o.done?`<div class=bar><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',1])">Accept</button><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',0])">Decline</button></div>`:''}`:''}</div>`).join(''):'<p class=dim>No mail yet. News, rumors and trade offers land here as the season moves.</p>'}</div>`};
+ return`<h2>Mailbox</h2><div class=bar>${np=='granted'?'<span class=dim>Alerts on</span>':np=='denied'?'<span class=dim>Alerts blocked in browser settings</span>':'<button onclick="askNotif()">Enable alerts</button>'}${L.length?'<button onclick="L_=inbox().forEach(m=>READ.add(m.id));localStorage.setItem(\'pbl_read\',JSON.stringify([...READ].slice(-300)));render()">Mark all read</button>':''}</div>${tp}<div class=mb>${L.length?L.map(m=>`<div class="mi ${READ.has(m.id)?'':'u'}" onclick="openMail('${m.id}')"><small>${esc(m.k)} &middot; Game ${m.rd}${m.o?(m.o.done==1?' &middot; accepted':m.o.done==2?' &middot; declined':m.o.done==3?' &middot; negotiating':''):''}</small><b>${esc(m.h)}</b>${UI.mo==m.id?`<span>${esc(m.b)}</span>${m.o&&!m.o.done?`<div class=bar><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',1])">Accept</button><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',0])">Decline</button>${m.o.hum?'':`<button onclick="event.stopPropagation();negot('${m.id}')">Negotiate</button>`}</div>`:''}`:''}</div>`).join(''):'<p class=dim>No mail yet. News, rumors and trade offers land here as the season moves.</p>'}</div>`};
 const _after=after;after=function(){const r=_after.apply(this,arguments);try{if(G&&G.rd!==G._mr){const T=G.T[G.me],o=G.T[(Math.random()*G.T.length)|0];G._mr=G.rd;
  if(G.rd&&G.rd%10==0)mail('Week '+G.rd+' report: '+T.n+' sit at '+T.w+'-'+T.l,'League watchers have you at '+T.w+' wins through '+G.rd+' games. '+(T.w>T.l?'Keep the pressure on.':'Time to turn it around.'),'News');
  if(G.rd==38)mail('Trade deadline approaches','The deadline is close. Front offices are making calls, so check the market before it shuts.','Deadline');
  else if(G.rd&&G.rd%7==0&&o.id!=G.me)mail('Rumor: '+o.n+' are shopping for talent','Sources say '+o.n+' ('+o.w+'-'+o.l+') are open to moves. Nothing is confirmed.','Rumor')}}catch(e){}return r};
 const _a3=after;after=function(){const r=_a3.apply(this,arguments);try{if(G&&G.rd&&G.rd%9==0&&G._ao!==G.rd&&(!ON.room||ON.host)){G._ao=G.rd;
  const hum=ON.room&&ON.mode=='fight'?[G.me,...Object.values(ON.own2)]:[G.me],ai=G.T.filter(t=>!hum.includes(t.id));
- hum.forEach(t=>{const o=ai[(Math.random()*ai.length)|0],mine=G.P.filter(p=>p.tid==t);if(!o||!mine.length)return;const a=mine[(Math.random()*mine.length)|0],c=G.P.filter(p=>p.tid==o.id&&Math.abs(p.ovr-a.ovr)<=4);if(!c.length)return;const b=c[(Math.random()*c.length)|0];
+ hum.forEach(t=>{const o=ai[(Math.random()*ai.length)|0],mine=G.P.filter(p=>p.tid==t);if(!o||!mine.length)return;const a=mine[(Math.random()*mine.length)|0],c=G.P.filter(p=>p.tid==o.id&&Math.abs(p.ovr-a.ovr)<=4);if(!c.length)return;const b=c[(Math.random()*c.length)|0];if(lockLeft(a.id)||!wants(a,o.id)||!wants(b,t))return;
   mail('Trade offer: '+o.n,o.n+' offer '+nm(b)+' ('+b.ovr+') for '+nm(a)+' ('+a.ovr+').','Offer',t,{from:o.id,give:a.id,get:b.id,hum:0})});if(ON.host&&ON.room)bc()}}catch(e){}return r};
 const _onl=onl;onl=function(){const h=_onl(),sl=n=>{const c=CL[n];return`<button onclick="ldc(${n})">${c?esc(c.meta.team)+' &middot; '+esc(c.meta.season)+' &middot; '+esc(c.meta.rec):'(empty)'}</button>`},
  x=acct()?`<h3>Saved rooms</h3><p class=dim>Room saves are kept apart from your solo slots. Load one, then create the room.</p><div class=bar>Fight ${sl(4)} Co-op ${sl(5)}</div>`:'',i=h.lastIndexOf('</main>');return i<0?h+x:h.slice(0,i)+x+h.slice(i)};
 
 /* ---------- DRAFT ---------- */
 const drHum=()=>ON.room&&ON.mode=='fight'&&ON.host?[G.me,...Object.values(ON.own2)]:[G.me];
-function startDraft(){const pool=Array.from({length:60},(_,i)=>mkP(I(44,70)+(i<10?I(6,14):i<25?I(2,6):0),I(19,22),0)).sort((a,b)=>(b.ovr*.6+b.pot*.4)-(a.ovr*.6+a.pot*.4));
- const o=G.T.map(t=>t.id).sort(()=>Math.random()-.5);G.dd={pool,order:[...o,...o],i:0};mail('Draft class ready','60 prospects are in. Open the Draft tab: you hold two picks.','News');drAuto()}
-function drTake(tid,p){const d=G.dd;d.pool=d.pool.filter(x=>x!==p);p.tid=tid;p.yrs=3;G.P.push(p);d.i++}
-function drAuto(){const d=G.dd;if(!d)return;while(d.i<d.order.length&&!drHum().includes(d.order[d.i]))drTake(d.order[d.i],d.pool[0]);
- if(d.i>=d.order.length){d.pool.slice(0,8).forEach(p=>{p.tid=-1;G.P.push(p)});G.dd=null;mail('Draft complete','The draft is over. Undrafted players are in free agency.','News')}}
-function drPick(pid){const d=G.dd;if(!d)return;if(d.order[d.i]!=G.me)return toast('Not your pick yet');if(mine().length>=15)return toast('Roster full: release a player first');
- const p=d.pool.find(x=>x.id==pid);if(!p)return;drTake(G.me,p);mail('Drafted '+nm(p),nm(p)+' ('+p.pos+', '+p.ovr+'/'+p.pot+') joins your team.','News');drAuto()}
-WL.push('drPick','drAuto');
-const _ns=nextSeason;nextSeason=function(){const r=_ns.apply(this,arguments);try{if(G&&G.rd===0&&!G.dd&&G.P.length)startDraft()}catch(e){}return r};
-VW.draft=()=>{const d=G.dd;if(!d)return'<h2>Draft</h2><p class=dim>No draft right now. A new class of 60 prospects arrives when the season rolls over.</p>';
- const my=d.order[d.i]==G.me,left=d.order.slice(d.i).filter(t=>t==G.me).length;
- return`<h2>Draft</h2><p>Pick ${d.i+1} of ${d.order.length}. On the clock: <b>${esc(G.T[d.order[d.i]].n)}</b>. You hold ${left} more pick${left==1?'':'s'}.</p><div class=w><table><tr><th>Player<th>Pos<th>Age<th>OVR<th>POT<th></tr>${d.pool.slice(0,30).map(p=>`<tr><td>${esc(nm(p))}<td>${p.pos}<td>${p.age}<td>${p.ovr}<td>${p.pot}<td>${my?`<button onclick="viaH('drPick',['${p.id}'])">Draft</button>`:''}</tr>`).join('')}</table></div>`};
+function addPicks(y){G.npk=G.npk||1;G.T.forEach(t=>[1,2].forEach(r=>G.pk.push({id:G.npk++,y,r,o:t.id,t:t.id})))}
+function fixG(){G.gd=G.gd||0;G.tq=G.tq||[];G.rj=G.rj||{};G.hist=G.hist||[];G.mx=G.mx||{};
+ if(!G.pk){G.pk=[];G.npk=1;const y0=G.dd?G.season:G.season+1;for(let y=y0;y<y0+3;y++)addPicks(y)}
+ if(G.dd){G.dd.y=G.dd.y||G.season;while(G.dd.pool.length<G.dd.order.length-G.dd.i+4)G.dd.pool.push(mkP(I(44,66),I(19,22),0))}}
+function startDraft(){const Y=G.season,pw=G.pw||G.T.map(()=>Math.random()),
+ pool=Array.from({length:72},(_,i)=>mkP(I(44,70)+(i<10?I(6,14):i<25?I(2,6):0),I(19,22),0)).sort((a,b)=>(b.ovr*.6+b.pot*.4)-(a.ovr*.6+a.pot*.4)),
+ base=G.T.map(t=>t.id).sort((a,b)=>(pw[a]-pw[b])||Math.random()-.5),own=(r,t)=>{const k=G.pk.find(x=>x.y==Y&&x.r==r&&x.o==t);return k?k.t:t};
+ G.dd={y:Y,pool,order:[...base.map(t=>own(1,t)),...base.map(t=>own(2,t))],i:0};
+ mail('Draft is open','72 prospects are in. You must finish the draft before the season starts.','News');drAuto()}
+function drTake(tid,p){const d=G.dd;d.pool=d.pool.filter(x=>x!==p);p.tid=tid;p.yrs=3;p.mor=Math.max(p.mor,70);G.P.push(p);d.i++}
+function drDone(){const d=G.dd,Y=d.y||G.season;d.pool.slice(0,8).forEach(p=>{p.tid=-1;G.P.push(p)});G.pk=G.pk.filter(k=>k.y!=Y);if(!G.pk.some(k=>k.y==Y+3))addPicks(Y+3);
+ const hm=drHum();G.T.forEach(T=>{if(hm.includes(T.id))return;let n=tp(T.id);while(n.length>15){const w=n.sort((a,b)=>a.ovr-b.ovr)[0];w.tid=-1;n=tp(T.id)}});G.dd=null;
+ const n=tp(G.me).length;mail('Draft complete','The draft is over.'+(n>15?' Your roster has '+n+' players: release down to 15 before simming.':'')+' Undrafted players are in free agency.','News');syncOrd()}
+function drAuto(){const d=G.dd;if(!d)return;while(d.i<d.order.length&&!drHum().includes(d.order[d.i]))drTake(d.order[d.i],d.pool[0]);if(d.i>=d.order.length)drDone()}
+function drPick(pid){const d=G.dd;if(!d)return;if(d.order[d.i]!=G.me)return toast('Not your pick yet');const p=d.pool.find(x=>x.id==pid);if(!p)return;resolveOffers(1);
+ drTake(G.me,p);mail('Drafted '+nm(p),nm(p)+' ('+p.pos+', '+p.ovr+'/'+p.pot+') joins your team.','News');drAuto()}
+function drAutoMe(){while(G.dd&&G.dd.order[G.dd.i]==G.me)drPick(G.dd.pool[0].id)}
+function drAll(){let n=0;while(G.dd&&n++<200){drAuto();if(!G.dd)break;const d=G.dd;drTake(d.order[d.i],d.pool[0])}}
+function autoRoster(){drHum().forEach(t=>{let n=tp(t);while(n.length>15){const w=n.filter(p=>!p.star).sort((a,b)=>(a.ovr+a.pot*.4)-(b.ovr+b.pot*.4))[0]||n[0];w.tid=-1;w.tr=0;n=tp(t)}});const m0=G.me;drHum().forEach(t=>{G.me=t;syncOrd()});G.me=m0}
+function chkReady(){if(G.dd){toast('Finish the draft before the season starts.');if(!ON.room){UI.v='draft';render()}return false}
+ const bad=drHum().find(t=>tp(t).length>15);if(bad!=null){toast(G.T[bad].n+' has '+tp(bad).length+' players. Release down to 15 first.');if(!ON.room){UI.v='roster';render()}return false}return true}
+WL.push('drPick');
+VW.draft=()=>{const d=G.dd;if(!d)return'<h2>Draft</h2><p class=dim>No draft right now. A new class of 72 prospects arrives each time the season rolls over, and you must finish it before the next season starts.</p>';
+ const my=d.order[d.i]==G.me,left=d.order.map((t,j)=>t==G.me&&j>=d.i?'#'+(j+1):null).filter(Boolean);
+ return`<h2>Draft ${d.y||G.season}</h2><p>Pick ${d.i+1} of ${d.order.length}. On the clock: <b>${esc(G.T[d.order[d.i]].n)}</b>. Your remaining picks: <b>${left.join(', ')||'none'}</b>. Finish the draft to start the season. You can also trade picks in the Trades tab.</p>${my?`<div class=bar><button onclick="viaH('drPick',['${d.pool[0].id}'])">Auto-pick best</button><button onclick="viaH('drAutoMe',[])">Auto-draft all my picks</button></div>`:'<p class=dim>Waiting for other managers…</p>'}<div class=w><table><tr><th>Player<th>Pos<th>Age<th>OVR<th>POT<th></tr>${d.pool.slice(0,30).map(p=>`<tr><td>${esc(nm(p))}<td>${p.pos}<td>${p.age}<td>${p.ovr}<td>${p.pot}<td>${my?`<button onclick="viaH('drPick',['${p.id}'])">Draft</button>`:''}</tr>`).join('')}</table></div>`};
 /* ---------- CUSTOM TEAMS (create a team: name, icon, colors, generated OVR) ---------- */
 const TM0=TM.map(t=>[...t]),ICONS=['🏀','🔥','⚡','🐺','🦅','🐻','🌵','🌊','👑','🚀','🛡️','💀','🐍','🦁'];
 const ctList=()=>{try{return JSON.parse(localStorage.getItem('pbl_cteams')||'[]')}catch(e){return[]}},ctSet=L=>localStorage.setItem('pbl_cteams',JSON.stringify(L)),ctLow=()=>TM0.reduce((m,t,i)=>t[1]<TM0[m][1]?i:m,0);
@@ -579,6 +649,18 @@ function ctV(){const f=UI.ctf=UI.ctf||{ovr:I(70,84)},L=ctList(),sl=f.slot??ctLow
 <div class=bar><img src="${ctLogo({c1,c2,ic})}" width=48 height=48> <b>OVR ${f.ovr}</b> <button onclick="ctRoll()">Reroll OVR</button> <button onclick="ctAdd()">Create team</button></div>
 ${L.length?'<h3>Your teams</h3>'+L.map(t=>`<div class=bar><img src="${ctLogo(t)}" width=32 height=32> ${esc(t.n)} <b>${t.ovr}</b> <span class=dim>replaces ${esc(TM0[t.slot][0])}</span> <button onclick="ctDel(${t.slot})">Remove</button></div>`).join(''):''}
 <div class=bar><button onclick="UI.menu='main';render()">Back</button></div></main>`}
+const MOBCSS="#lay{grid-template-columns:1fr}nav{flex-direction:row;flex-wrap:wrap;position:static;border-right:0;border-bottom:3px solid var(--ln)}.cv{grid-template-columns:1fr}\nbody{font-size:calc(15px*var(--fs,1))}h1{font-size:20px}h2{font-size:15px}h3{font-size:12px}\nbutton,select,input{min-height:44px}button{font-size:10px;padding:8px 10px;line-height:1.3}input{max-width:100%}\n#hud{flex-wrap:nowrap;overflow-x:auto;gap:4px;padding:6px;-webkit-overflow-scrolling:touch}#hud .s{flex:0 0 76px;padding:4px}#hud small{font-size:8px}#hud b{font-size:12px}\nnav{flex-wrap:nowrap;overflow-x:auto;gap:6px;padding:6px 8px;-webkit-overflow-scrolling:touch}nav button{flex:0 0 auto;white-space:nowrap}\n#lay{grid-template-columns:minmax(0,1fr)}main{min-width:0;padding:10px 10px 150px}\n#act{display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:6px;padding-left:calc(8px + env(safe-area-inset-left,0px));padding-right:calc(8px + env(safe-area-inset-right,0px))}#act button{text-align:center;padding:6px 4px;font-size:9px}\n#ts{left:10px;right:10px;bottom:calc(130px + env(safe-area-inset-bottom,0px))}#ts div{max-width:none}\ntable{font-size:13px}th,td{padding:6px 7px}.sb{font-size:11px;padding:8px 6px}\n.bar{gap:8px}.g3{grid-template-columns:1fr}#md{padding:10px}\n";
+function applyUI(){const m=localStorage.getItem('pbl_ui')||'auto',s=parseFloat(localStorage.getItem('pbl_fs'))||1;let st=document.getElementById('uis');if(!st){st=document.createElement('style');st.id='uis';document.head.appendChild(st)}
+ st.textContent=m=='mobile'?MOBCSS:m=='auto'?'@media(max-width:760px){'+MOBCSS+'}':'';document.body.classList.toggle('mob',m=='mobile');document.body.style.setProperty('--fs',s);
+ const vp=document.querySelector('meta[name=viewport]');if(vp)vp.setAttribute('content',m=='desktop'?'width=1100':'width=device-width,initial-scale=1,viewport-fit=cover')}
+function setCtl(){const m=localStorage.getItem('pbl_ui')||'auto',s=String(parseFloat(localStorage.getItem('pbl_fs'))||1),
+ b=(v,l)=>`<button style="${m==v?'background:var(--ac);color:#000':''}" onclick="setUI('${v}')">${l}</button>`,f=(v,l)=>`<button style="${s==v?'background:var(--ac);color:#000':''}" onclick="setFS('${v}')">${l}</button>`;
+ return`<h3>Display</h3><div class=bar>${b('auto','Auto')}${b('mobile','Mobile')}${b('desktop','Desktop')}</div><div class=bar>Text size ${f('0.9','Small')}${f('1','Normal')}${f('1.15','Large')}</div><p class=dim>Auto adapts to your screen. Mobile forces the compact phone layout. Desktop forces the wide layout (on a phone it zooms out to fit).</p>`}
+function setRe(){UI.setm&&$('#md').style.display=='block'?openSet():render()}
+function setUI(v){localStorage.setItem('pbl_ui',v);applyUI();setRe()}
+function setFS(v){localStorage.setItem('pbl_fs',v);applyUI();setRe()}
+function openSet(){const m=$('#md');UI.setm=1;m.innerHTML=`<div class=pn style="margin-top:8vh"><button style="float:right" onclick="UI.setm=0;$('#md').style.display='none'">&#10005;</button><h2>Settings</h2>${setCtl()}<div class=bar><button onclick="SND=!SND;localStorage.setItem('pbl_snd',SND?1:0);openSet()">Sound: ${SND?'On':'Off'}</button></div></div>`;m.style.display='block'}
+applyUI();
 applyCT();
 (function(){const m=/^#k=([A-Za-z0-9_]{3,16})\.([0-9a-f]{8,64})$/.exec(location.hash);if(m){localStorage.setItem('pbl_name',m[1]);localStorage.setItem('pbl_tok_'+m[1].toLowerCase(),m[2]);history.replaceState(null,'',location.pathname)}
  if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('/sw.js').catch(()=>{})})();
