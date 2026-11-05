@@ -51,6 +51,10 @@ const pub=u=>({r:u.r,w:u.w,l:u.l});
 const top=()=>Object.values(users).sort((a,b)=>b.r-a.r||b.w-a.w).slice(0,100).map(u=>({n:u.d,r:u.r,w:u.w,l:u.l}));
 app.use((q,s,n)=>{s.set({'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type,X-User,X-Token','Access-Control-Allow-Methods':'GET,PUT,DELETE,OPTIONS'});n()});
 app.options('/api/*',(q,s)=>s.sendStatus(204));
+// ---------- installable app (PWA) ----------
+app.get('/manifest.webmanifest',(q,s)=>s.type('application/manifest+json').send(JSON.stringify({name:'Pixel Basketball League',short_name:'PBL',start_url:'/',display:'standalone',background_color:'#0b0e17',theme_color:'#0b0e17',icons:[{src:'/icon.svg',sizes:'any',type:'image/svg+xml',purpose:'any maskable'}]})));
+app.get('/icon.svg',(q,s)=>s.type('image/svg+xml').send('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0b0e17"/><circle cx="256" cy="256" r="170" fill="#ffb81c"/><path d="M256 86v340M86 256h340M136 136c60 60 60 180 0 240M376 136c-60 60-60 180 0 240" stroke="#0b0e17" stroke-width="14" fill="none"/></svg>'));
+app.get('/sw.js',(q,s)=>s.type('application/javascript').send("self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',()=>{});self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(self.clients.matchAll({type:'window'}).then(l=>l.length?l[0].focus():self.clients.openWindow('/')))});"));
 app.use(express.static(__dirname+'/public'));
 app.get('/api/leaderboard',(q,s)=>s.json(top()));
 
@@ -81,7 +85,7 @@ function authU(q,s,n){ // account = X-User name + X-Token (issued at sign-in)
  const k=String(q.get('x-user')||'').toLowerCase(),t=String(q.get('x-token')||''),u=Object.prototype.hasOwnProperty.call(users,k)?users[k]:null;
  const ok=u&&t.length===u.tok.length&&crypto.timingSafeEqual(Buffer.from(t),Buffer.from(u.tok));
  if(!ok)return s.status(401).json({error:'auth'});q.k=k;n()}
-const slotOf=q=>{const n=Number(q.params.slot);return Number.isInteger(n)&&n>=1&&n<=3?n:0};
+const slotOf=q=>{const n=Number(q.params.slot);return Number.isInteger(n)&&n>=1&&n<=6?n:0};
 const lastPut={},jp=express.json({limit:'4mb'});
 app.get('/api/saves',authU,wrap(async(q,s)=>s.json(await sList(q.k))));
 app.get('/api/saves/:slot',authU,wrap(async(q,s)=>{
