@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.onrender.pbl_online.twa",
+    "sha256_cert_fingerprints": ["AE:3F:B2:95:8B:76:63:9E:6A:64:14:71:3C:1F:99:B8:D2:07:CD:E7:35:C8:72:28:37:F3:EF:9D:F2:C8:25:A1"]
+  }
+}]
