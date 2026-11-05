@@ -288,7 +288,7 @@ const u=wsurl();if(!u)return toast('Enter the server URL first');try{ON.ws=new W
 ON.ws.onopen=()=>cb&&cb();ON.ws.onmessage=e=>{try{rx(JSON.parse(e.data))}catch(x){console.error(x)}};
 ON.ws.onerror=()=>toast('Could not reach the server');ON.ws.onclose=()=>{if(ON.room)leave(1);ON.ws=null}}
 function openOn(){UI.menu='online';lbf();const n=localStorage.getItem('pbl_name');if(n&&!ON.name&&wsurl())conn(()=>tx({t:'login',name:n,tok:localStorage.getItem('pbl_tok_'+n.toLowerCase())||''}));render()}
-function lbf(){try{fetch(wsurl().replace(/^ws/,'http')+'/api/leaderboard').then(r=>r.json()).then(j=>{ON.lb=j;if(UI.menu=='online'&&!G)render()}).catch(()=>{})}catch(e){}}
+function lbf(){try{fetch(wsurl().replace(/^ws/,'http')+'/api/leaderboard'+(ON.lbm=='season'?'?ladder=season':'')).then(r=>r.json()).then(j=>{ON.lb=Array.isArray(j)?j:j.rows;if(UI.menu=='online'&&!G)render()}).catch(()=>{})}catch(e){}}
 function signin(){const n=$('#un').value.trim();if(!/^[A-Za-z0-9_]{3,16}$/.test(n))return toast('3-16 letters, numbers or _');localStorage.pbl_srv=$('#sv2').value.trim();conn(()=>tx({t:'login',name:n,tok:localStorage.getItem('pbl_tok_'+n.toLowerCase())||''}))}
 function mkRoom(m){ON.spec=0;ON.own2={};ON.hm=null;tx({t:'create',mode:m})}
 function jn(s){ON.spec=!!s;const c=$('#rc').value.trim().toUpperCase();if(c.length!=4)return toast('Enter the 4-letter code');ON.own2={};tx({t:'join',code:c})}
@@ -326,8 +326,8 @@ function memT(){return tb(['Player','Rating'],ON.mem.map(m=>[m.name+(m.name==ON.
 function onl(){const o=ON;let h='<main><h1>Online</h1>';
 if(o.room)h+=`<h2>Room ${o.room} · ${o.mode=='coop'?'Co-op':'Fight'}</h2><p>Share this code with friends.</p>${memT()}${o.host?`<div class=bar><button onclick="UI.menu='new';render()">New Franchise</button><button onclick="UI.menu='load';render()">Load Franchise</button></div><p class=dim>Pick a team to start the league. Players are added automatically.</p>`:'<p class=dim>Waiting for the host to start the league…</p>'}<button onclick="leave()">Leave room</button>`;
 else if(!o.name)h+=`<p>Pick a username (3-16 letters, numbers or _). No password needed.</p><div class=bar><input id=un maxlength=16 placeholder=Username> <button onclick="signin()">Sign in</button></div>`;
-else h+=`<p>Signed in as <b>${o.name}</b> · rating <b>${o.u?o.u.r:1000}</b> (${o.u?o.u.w:0}W-${o.u?o.u.l:0}L)</p><div class=g3><button onclick="mkRoom('coop')">Create Co-op room</button><button onclick="mkRoom('fight')">Create Fight room</button></div><div class=bar><input id=rc maxlength=4 placeholder="Room code" style="text-transform:uppercase"> <button onclick="jn()">Join room</button> <button onclick="jn(1)">👁 Watch</button></div>`;
-if(!o.room)h+=`<div class=bar>Server <input id=sv2 style="width:240px" value="${wsurl()}" placeholder="wss://your-app.onrender.com" onchange="localStorage.pbl_srv=this.value"></div><h3>Leaderboard (top 100)</h3>`+tb(['#','Player','Rating','W','L'],o.lb.map((r,i)=>[i+1,r.n,r.r,r.w,r.l]))+`<button onclick="UI.menu='main';render()">Back</button>`;
+else h+=`<p>Signed in as <b>${o.name}</b> · rating <b>${o.u?o.u.r:1000}</b> (${o.u?o.u.w:0}W-${o.u?o.u.l:0}L) · month ladder <b>${o.u&&o.u.sr!=null?o.u.sr:1000}</b></p><div class=g3><button onclick="mkRoom('coop')">Create Co-op room</button><button onclick="mkRoom('fight')">Create Fight room</button></div><div class=bar><input id=rc maxlength=4 placeholder="Room code" style="text-transform:uppercase"> <button onclick="jn()">Join room</button> <button onclick="jn(1)">👁 Watch</button></div>`;
+if(!o.room)h+=`<div class=bar>Server <input id=sv2 style="width:240px" value="${wsurl()}" placeholder="wss://your-app.onrender.com" onchange="localStorage.pbl_srv=this.value"></div><h3>Leaderboard (top 100)</h3><div class=bar><button onclick="ON.lbm='all';lbf()">All-time</button><button onclick="ON.lbm='season';lbf()">${new Date().toLocaleString('en',{month:'long',timeZone:'UTC'})} ladder (resets monthly)</button></div>`+tb(['#','Player','Rating','W','L'],o.lb.map((r,i)=>[i+1,r.n,r.r,r.w,r.l]))+`<button onclick="UI.menu='main';render()">Back</button>`;
 return h+'</main>'}
 function menu(){const last=localStorage.getItem('pbl_last');const m=UI.menu;
 if(m=='online')return onl();
@@ -506,6 +506,32 @@ VW.fac=()=>{const T=G.T[G.me],f=T.fac=T.fac||{arena:0,train:0};return`<h2>Facili
 VW.hist=()=>{const w=a=>a?`<a onclick="prof(${a.id||0})">${esc(a.n)}</a>`:'—';return`<h2>Season history</h2><div class=bar><b>Sim seasons:</b> ${[1,3,5,10].map(n=>`<button onclick="simSeasons(${n})">${n}</button>`).join('')}</div><p class=dim>Plays the rest of this season, the playoffs and the offseason with no stops. Your expiring players rated above 55 are re-signed automatically.</p>`+(G.hist.length?tb(['Season','Champion','Runner-up','Your record','MVP','Defense','Rookie','Scoring','Coach'],[...G.hist].reverse().map(h=>{const a=h.aw||{};return[h.season,esc(h.tn||(G.T[h.champ]||{}).n),esc(h.fin||''),h.rec||'',w(a.mvp),w(a.dpoy),w(a.roy),w(a.sc),a.coy?esc(a.coy.n):'—']})):'<p class=dim>No finished seasons yet.</p>')};
 VW.div=()=>`<h2>Divisions</h2>`+[0,1,2,3].map(d=>`<h3>${DIVN[d]} Division <span class=dim>(${d%2?'West':'East'})</span></h3>`+tb(['#','Team','W-L','Diff'],G.T.filter(t=>t.id%4==d).sort(cmp).map((t,i)=>[i+1,logo(t)+' '+esc(t.n),t.w+'-'+t.l,t.pf-t.pa]))).join('');
 NAV.push(['div','Divisions'],['fac','Facilities'],['hist','History']);
+/* ---------- v4: world trade ---------- */
+const wapi=async(m,p,b)=>{const u=acct();if(!u)throw'Sign in from the Online page first';const r=await fetch(apiBase()+p,{method:m,headers:Object.assign({'X-User':u.n,'X-Token':u.t},b?{'Content-Type':'application/json'}:{}),body:b?JSON.stringify(b):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw j.error||('Server error '+r.status);return j};
+const wOK=()=>{if(!G)return 0;if(ON.room&&!ON.host){toast('Leave the room first: world trades use your own league');return 0}return 1};
+const wClean=p=>{const q=JSON.parse(JSON.stringify(p));delete q.tid;return q};
+function wGive(q){q.id=G.nid++;q.tid=G.me;q.tr=0;q.ul=0;q.inj=q.inj||0;q.mor=Math.max(q.mor||60,60);G.P.push(q);syncOrd()}
+function wSave(){sv();if(ON.host&&ON.room)bc()}
+async function wMine(quiet){const j=await wapi('GET','/api/world/mine');UI.wm=j.open;const ap=JSON.parse(localStorage.getItem('pbl_wapplied')||'[]');
+ for(const d of j.done){if(!ap.includes(d.id)&&wOK()){wGive(d.ret);mail('World trade complete',esc(d.by)+' traded you '+d.ret.n+' ('+d.ret.ovr+' OVR) for '+d.player.n+'.','News');ap.push(d.id);localStorage.setItem('pbl_wapplied',JSON.stringify(ap.slice(-200)));if(!quiet)toast('🌍 Swap done: '+d.ret.n+' joined your team');wSave()}
+  if(ap.includes(d.id))try{await wapi('POST','/api/world/'+d.id+'/ack')}catch(e){}}}
+async function wLoad(){if(!acct()||!G)return render();UI.wlq=1;try{UI.wl=await wapi('GET','/api/world');await wMine()}catch(e){UI.wl=UI.wl||[];toast(String(e))}UI.wlq=0;render()}
+async function wPost(){if(!wOK())return;const p=G.P.find(x=>x.id==+$('#wp').value&&x.tid==G.me);if(!p)return;if(mine().length<=10)return toast('Keep at least 10 players');
+ if(!confirm('List '+p.n+'? He leaves your roster until someone swaps with you (or you cancel).'))return;
+ try{await wapi('POST','/api/world',{player:wClean(p),note:$('#wn').value.slice(0,80)});G.P=G.P.filter(x=>x!==p);syncOrd();wSave();toast(p.n+' listed')}catch(e){return toast(String(e))}wLoad()}
+async function wClaim(id){if(!wOK())return;const p=G.P.find(x=>x.id==+$('#wc'+id).value&&x.tid==G.me);if(!p)return;if(!confirm('Swap '+p.n+' for this player? This cannot be undone.'))return;
+ try{const r=await wapi('POST','/api/world/'+id+'/claim',{player:wClean(p)});G.P=G.P.filter(x=>x!==p);wGive(r.player);mail('World trade complete','You swapped '+p.n+' for '+r.player.n+' ('+r.player.ovr+' OVR).','News');G.k.tr=(G.k.tr||0)+1;wSave();toast('🌍 '+r.player.n+' joined your team')}catch(e){return toast(String(e))}wLoad()}
+async function wCancel(id){if(!wOK())return;try{const r=await wapi('POST','/api/world/'+id+'/cancel');wGive(r.player);wSave();toast(r.player.n+' is back on your roster')}catch(e){toast(String(e))}wLoad()}
+VW.world=()=>{if(!acct())return'<h2>🌍 World Trade</h2><p>Sign in from the Online page on the main menu to trade with managers around the world.</p>';
+ if(!UI.wl){if(!UI.wlq)wLoad();return'<h2>🌍 World Trade</h2><p>Loading…</p>'}
+ const mp=mine().sort((a,b)=>b.ovr-a.ovr),M=UI.wm||[],O=UI.wl.filter(l=>!l.mine),opt=ps=>ps.map(p=>`<option value=${p.id}>${esc(p.n)} · ${p.ovr}/${p.pot||'?'} · ${p.pos}</option>`).join('');
+ return`<h2>🌍 World Trade</h2><p class=dim>Swap players 1-for-1 with managers in other leagues. A listed player leaves your roster until someone swaps with you or you cancel. The offered player must be within 8 OVR. Ratings come from each manager's own game, so trades are on trust.</p><div class=bar><button onclick="wLoad()">↻ Refresh</button></div>
+<h3>List a player</h3><div class=bar><select id=wp>${opt(mp)}</select> <input id=wn maxlength=80 placeholder="Looking for (optional)"> <button onclick="wPost()">List</button></div>
+<h3>Your listings</h3>${M.length?tb(['Player','Note',''],M.map(l=>[esc(l.player.n)+' · '+l.player.ovr,esc(l.note||''),`<button onclick="wCancel(${l.id})">Cancel</button>`])):'<p class=dim>None.</p>'}
+<h3>Open listings</h3>${O.length?tb(['Player','Pos','Age','OVR/POT','Manager','Looking for','Your offer'],O.map(l=>{const p=l.player,ok=mp.filter(x=>Math.abs(x.ovr-p.ovr)<=8);return[esc(p.n),p.pos,p.age,p.ovr+'/'+(p.pot||'?'),esc(l.d),esc(l.note||''),ok.length?`<select id=wc${l.id}>${opt(ok)}</select> <button onclick="wClaim(${l.id})">Swap</button>`:'<span class=dim>no fair match</span>']})):'<p class=dim>No open listings right now.</p>'}`};
+NAV.push(['world','🌍 World Trade']);
+setInterval(()=>{if(G&&acct()&&!ON.spec&&(!ON.room||ON.host))wMine(1).catch(()=>{})},120000);
+
 
 VW.mail=()=>{const L=inbox(),np='Notification' in window?Notification.permission:'none',pt=UI.pt=UI.pt||{},fr=ON.room&&ON.mode=='fight';
  const others=fr?ON.mem.filter(x=>x.name!=ON.name):[],tid=pt.to?(pt.to==ON.hostName?ON.hm:ON.own2[pt.to]):null;
