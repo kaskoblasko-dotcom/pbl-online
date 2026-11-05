@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>PBL — Pixel Basketball League</title>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name=theme-color content="#0d1020">
+<link rel=manifest href="/manifest.webmanifest"><link rel=icon href="/icon.svg"><link rel=apple-touch-icon href="/icon.svg">
 <meta name=mobile-web-app-capable content=yes>
 <meta name=apple-mobile-web-app-capable content=yes>
 <meta name=apple-mobile-web-app-status-bar-style content=black>
@@ -49,6 +50,9 @@ nav{flex-wrap:nowrap;overflow-x:auto;gap:6px;padding:6px 8px;-webkit-overflow-sc
 table{font-size:13px}th,td{padding:6px 7px}.sb{font-size:11px;padding:8px 6px}
 .bar{gap:8px}.g3{grid-template-columns:1fr}#md{padding:10px}
 }
+
+.mb{display:grid;gap:8px}.mi{display:grid;gap:4px;padding:10px 12px;background:#1a1f3a;border:3px solid #34406e;box-shadow:3px 3px #000;cursor:pointer}
+.mi.u{border-color:var(--ac)}.mi small{color:#8f9bc8;font-size:10px}.bd{display:inline-block;min-width:16px;padding:1px 4px;margin-left:6px;background:#e5322d;color:#fff;font-size:10px}
 </style></head><body><div id=app></div><div id=md onclick="if(event.target==this||event.target.parentNode==this)this.style.display='none'"></div><div id=ts></div>
 <script>
 /* TEAM LOGOS: edit ONLY here, in the code. Put an image URL or data URI between the quotes for each team. Empty = colored placeholder. Players are drawn by the game.
@@ -223,8 +227,8 @@ async function api(method,path,body){const u=acct();if(!u)throw 401;
  const r=await fetch(apiBase()+path,{method,headers:Object.assign({'X-User':u.n,'X-Token':u.t},body?{'Content-Type':'application/json'}:{}),body:body?JSON.stringify(body):undefined});
  if(r.status==401){signOut(1);throw 401}if(!r.ok)throw r.status;return r.json()}
 function metaOf(g){const T=g.T[g.me];return{team:T.n,season:g.season,rec:T.w+'-'+T.l,ach:g.ach||{}}}
-function sv(s){if(!acct())return;
- if(!G)return;const slot=s||UI.slot;try{localStorage.setItem('pbl_last',slot)}catch(e){}
+function sv(s){if(!acct()||(ON.room&&!ON.host))return;
+ if(!G)return;const slot=ON.room&&ON.host?(ON.mode=='coop'?5:4):(s||UI.slot);try{localStorage.setItem('pbl_last',slot)}catch(e){}
  PEND={slot,body:{meta:metaOf(G),data:G}};clearTimeout(SVT);SVT=setTimeout(flushSave,900)}
 function flushSave(){clearTimeout(SVT);CUR=CUR.then(async()=>{if(!PEND)return true;const p=PEND;PEND=null;
  try{const r=await api('PUT','/api/saves/'+p.slot,p.body);CL[p.slot]={slot:p.slot,ts:r.ts,meta:p.body.meta};RETRY=0;return true}
@@ -267,7 +271,7 @@ async function afterLogin(){UI.nw=0;if(UI.signm){UI.signm=0;$('#md').style.displ
 const banner=()=>acct()?'':`<div class=warn><span>Not signed in. Your progress is <b>not</b> being saved.</span><button onclick="askSign()">Sign in</button></div>`;
 
 /* ---------- UI ---------- */
-const NAV=[['dash','Dashboard'],['roster','Roster'],['sched','Schedule'],['stand','Standings'],['match','Match Center'],['trade','Trades'],['fa','Free Agency'],['search','Player Search'],['staff','Coaching'],['fin','Finances'],['lstats','League Stats'],['tstats','Team Stats'],['ach','Achievements']];
+const NAV=[['dash','Dashboard'],['roster','Roster'],['sched','Schedule'],['stand','Standings'],['match','Match Center'],['trade','Trades'],['fa','Free Agency'],['search','Player Search'],['staff','Coaching'],['fin','Finances'],['lstats','League Stats'],['tstats','Team Stats'],['draft','Draft'],['mail','Mailbox'],['ach','Achievements']];
 const go=v=>{UI.v=v;render()},tb=(h,r)=>`<div class=w><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr${x.cls?` class=${x.cls}`:''}>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
 const pln=p=>`<a onclick="prof(${p.id})">${p.n}</a>${p.star==2?' <b class=xs>XSTAR</b>':p.star?' <b class=ss>★</b>':''}${p.inj?` <span class=rd>+${p.inj}</span>`:''}`;
 const hud=()=>{const T=G.T[G.me],ps=mine(),mo=Math.round(ps.reduce((s,p)=>s+p.mor,0)/ps.length),c=(l,v)=>`<div class=s><small>${l}</small><b>${v}</b></div>`;return`<div id=hud style="border-bottom-color:${TC[G.me][0]}">${c('TEAM',T.n.split(' ').pop())}${c('OVR',to(G.me))}${c('RECORD',T.w+'-'+T.l)}${c('RANK','#'+rank(G.me))}${c('GAME',G.po?'PLAYOFFS':G.rd+'/62')}${c('PAYROLL','$'+pay(G.me)+'M')}${c('MORALE',mo)}${c('STREAK',T.sk?sg(T.sk):'-')}</div>`};
@@ -326,12 +330,12 @@ if(!o.room)h+=`<div class=bar>Server <input id=sv2 style="width:240px" value="${
 return h+'</main>'}
 function menu(){const last=localStorage.getItem('pbl_last');const m=UI.menu;
 if(m=='online')return onl();
-if(m=='new')return`<main><h1>New Franchise</h1><div class=bar>Difficulty <select id=df><option value=0>Easy<option value=1 selected>Normal<option value=2>Hard</select><button onclick="UI.menu='main';render()">Back</button></div><div class=g3>${TM.map(([n,o],i)=>`<button onclick="newG(${i},+$('#df').value);sv();render()">${logo({id:i,n})} ${n} <b>${o}</b></button>`).join('')}</div></main>`;
+if(m=='new')return`<main><h1>New Franchise</h1><div class=bar>Difficulty <select id=df><option value=0>Easy<option value=1 selected>Normal<option value=2>Hard</select><button onclick="UI.menu='ct';render()">Create team</button><button onclick="UI.menu='main';render()">Back</button></div><div class=g3>${TM.map(([n,o],i)=>`<button onclick="newG(${i},+$('#df').value);sv();render()">${logo({id:i,n})} ${n} <b>${o}</b></button>`).join('')}</div></main>`;
 if(m=='load'){const u=acct();if(!u)return`<main><h1>Load Franchise</h1><p>Sign in to load your saved franchises.</p><div class=bar><button onclick="askSign()">Sign in</button><button onclick="UI.menu='main';render()">Back</button></div></main>`;
 return`<main><h1>Load Franchise</h1><p class=dim>Signed in as ${esc(u.n)}${CLR==0?' &middot; loading saves...':CLR==2?' &middot; could not reach the server':''}</p><div class=bar>${[1,2,3].map(s=>{const c=CL[s];return`<button onclick="ldc(${s})">${c?'Slot '+s+': '+esc(c.meta.team)+' &middot; '+esc(c.meta.season)+' &middot; '+esc(c.meta.rec):'Slot '+s+' (empty)'}</button>`}).join('')}<button onclick="UI.menu='main';render()">Back</button>${CLR==2?'<button onclick="refreshSaves()">Retry</button>':''}</div><p>Slot used for saving: <select onchange="UI.slot=+this.value">${[1,2,3].map(s=>`<option ${UI.slot==s?'selected':''}>${s}`).join('')}</select></p></main>`}
 if(m=='ach'){const c=CL[last]||CL[1]||CL[2]||CL[3],a=(c&&c.meta&&c.meta.ach)||{};return`<main><h1>Achievements</h1>${acct()?'':'<p class=dim>Sign in to see achievements from your saved franchise.</p>'}${achList(a)}<button onclick="UI.menu='main';render()">Back</button></main>`}
 
-if(m=='set'){const u=acct();return`<main><h1>Settings</h1><p>Difficulty is chosen per franchise (Easy / Normal / Hard) and changes AI trade strictness and morale loss. Saves live in your account (3 slots).</p>${u?`<p>Account: <b>${esc(u.n)}</b></p><div class=bar><button onclick="copyKey()">Copy recovery key</button><button onclick="signOut()">Sign out</button></div><p class=dim>Your recovery key lets you sign in on another device. Keep it private.</p>`:`<p>Not signed in. <button onclick="askSign()">Sign in</button></p>`}<button onclick="delAll()">Delete all saves</button> <button onclick="UI.menu='main';render()">Back</button></main>`}
+if(m=='ct')return ctV();if(m=='set'){const u=acct();return`<main><h1>Settings</h1><p>Difficulty is chosen per franchise (Easy / Normal / Hard) and changes AI trade strictness and morale loss. Saves live in your account (3 slots).</p>${u?`<p>Account: <b>${esc(u.n)}</b></p><div class=bar><button onclick="copyKey()">Copy recovery key</button><button onclick="copyLink()">Copy sign-in link</button><button onclick="signOut()">Sign out</button></div><p class=dim>Your recovery key lets you sign in on another device. Keep it private.</p>`:`<p>Not signed in. <button onclick="askSign()">Sign in</button></p>`}<button onclick="UI.menu='ct';render()">Custom Teams</button> <button onclick="delAll()">Delete all saves</button> <button onclick="UI.menu='main';render()">Back</button></main>`}
 return`<main style="text-align:center;padding-top:40px"><h1>PBL</h1><h2>Pixel Basketball League</h2><p class=dim>30 teams &middot; 62 games &middot; one championship</p>${acct()?`<p class=dim>Signed in as ${esc(acct().n)}${CLR==0?' &middot; loading saves...':CLR==2?' &middot; could not reach the server <a onclick="refreshSaves()">Retry</a>':''}</p>`:`<div class=warn style="max-width:300px;margin:12px auto"><span>Sign in to save your progress.</span><button onclick="askSign()">Sign in</button></div>`}<div style="display:grid;gap:10px;max-width:300px;margin:24px auto">${last&&CL[last]?`<button onclick="ldc(${last})">Continue Franchise</button>`:''}<button onclick="UI.menu='new';render()">New Franchise</button><button onclick="UI.menu='load';render();refreshSaves()">Load Franchise</button><button onclick="UI.menu='set';render()">Settings</button><button onclick="UI.menu='ach';render()">Achievements</button><button onclick="openOn()">Online</button></div></main>`}
 const achList=a=>AL.map(([id,n,d])=>`<div class=msg style="${a[id]?'':'opacity:.5'}"><i class=lg style="background:${a[id]?'var(--ac)':'#444'}">${a[id]?'★':'?'}</i> <b>${n}</b> — ${d}${a[id]?` <span class=gd>Unlocked ${a[id]}</span>`:''}</div>`).join('');
 const ctl=()=>'';function actbar(){const po=G.po;return(G.rd<62?`<button onclick="pl()">▶ Play &amp; Watch</button><button onclick="sd(1)">Sim Day</button><button onclick="sd(7)">Sim Week</button><button onclick="sd(99)">Sim Season</button>`:po&&!po.champ?`<button onclick="pd(1)">Playoff Game</button><button onclick="pd(99)">Sim Playoffs</button>`:`<button onclick="nextSeason()">Next Season ▶</button>`)}
@@ -442,6 +446,78 @@ if(e.pts){bx=hx;by2=90}x.fillStyle='#ff7a00';x.fillRect(bx-2,by2-2,5,5);x.fillSt
 const mm=Math.floor(e.c/60),ss=String(Math.floor(e.c%60)).padStart(2,'0');
 $('#sb').innerHTML=`<span>${G.T[r.t[0]].n.split(' ').pop()} ${e.s[0]}</span><span>${e.q<=4?'Q'+e.q:'OT'+(e.q-4)} ${mm}:${ss}</span><span>${e.s[1]} ${G.T[r.t[1]].n.split(' ').pop()}</span>`;
 $('#pb').innerHTML=r.log.slice(Math.max(0,k-12),k+1).reverse().map(l=>`<div class=msg style="${l.pts?'border-color:var(--gd)':''}"><span class=dim>Q${l.q} ${Math.floor(l.c/60)}:${String(Math.floor(l.c%60)).padStart(2,'0')}</span> ${l.t}</div>`).join('')}
+
+/* ---------- MAILBOX + NOTIFICATIONS + INSTALL ---------- */
+function notify(t,b){try{if(!('Notification' in window)||Notification.permission!=='granted'||!document.hidden)return;
+ navigator.serviceWorker&&navigator.serviceWorker.ready?navigator.serviceWorker.ready.then(r=>r.showNotification(t,{body:b,icon:'/icon.svg',badge:'/icon.svg'})):new Notification(t,{body:b,icon:'/icon.svg'})}catch(e){}}
+const nm=p=>p.n||p.name||('#'+p.id),READ=new Set(JSON.parse(localStorage.getItem('pbl_read')||'[]'));
+const inbox=()=>(G&&G.mx&&G.mx[G.me])||[],unread=()=>inbox().filter(m=>!READ.has(m.id)).length;
+function mail(h,b,k,tid,o){if(!G)return;const t=tid==null?G.me:tid;G.mx=G.mx||{};const L=G.mx[t]=G.mx[t]||[];L.unshift({id:'m'+Date.now()+Math.random().toString(36).slice(2,6),k:k||'News',h,b,rd:G.rd,o});if(L.length>60)L.length=60;if(t==G.me)notify(h,b)}
+function openMail(id){READ.add(id);localStorage.setItem('pbl_read',JSON.stringify([...READ].slice(-300)));UI.mo=UI.mo==id?0:id;render()}
+async function askNotif(){if(!('Notification' in window))return toast('Notifications are not supported here');const r=await Notification.requestPermission();toast(r=='granted'?'Notifications on':'Notifications blocked');render()}
+function viaH(fn,a){if(ON.room&&!ON.host)tx({t:'host',d:{k:'rpc',fn,a,ctx:null}});else{window[fn](...a);if(ON.host&&ON.room)bc();sv();render()}}
+function pOffer(to,give,get){const tid=to==ON.hostName?ON.hm:ON.own2[to];
+ if(!ON.room||ON.mode!='fight'||tid==null||tid==G.me||!ON.mem.some(m=>m.name==to))return toast('You can only trade with players in your Fight room');
+ const a=G.P.find(p=>p.id==give),b=G.P.find(p=>p.id==get);if(!a||!b||a.tid!=G.me||b.tid!=tid)return toast('Pick one player from each team');
+ mail('Trade offer from '+G.T[G.me].n,G.T[G.me].n+' offer '+nm(a)+' ('+a.ovr+') for '+nm(b)+' ('+b.ovr+').','Offer',tid,{from:G.me,give:get,get:give,hum:1});toast('Offer sent to '+to)}
+function tradeAct(mid,yes){const m=inbox().find(x=>x.id==mid),o=m&&m.o;if(!o||o.done)return toast('Offer no longer available');o.done=yes?1:2;
+ if(yes){const a=G.P.find(p=>p.id==o.give),b=G.P.find(p=>p.id==o.get);
+  if(!a||!b||a.tid!=G.me||b.tid!=o.from){o.done=2;return toast('Players have moved. Trade void.')}
+  a.tid=o.from;b.tid=G.me;a.tr=0;b.tr=0;const m0=G.me;[m0,o.from].forEach(t=>{G.me=t;try{syncOrd()}catch(e){}});G.me=m0;
+  mail('Trade done',nm(b)+' joins you for '+nm(a)+'.','News');if(o.hum)mail('Trade accepted',G.T[m0].n+' took your offer: '+nm(a)+' for '+nm(b)+'.','News',o.from)}
+ else if(o.hum)mail('Trade declined',G.T[G.me].n+' turned down your offer.','News',o.from);toast(yes?'Trade completed':'Offer declined')}
+WL.push('pOffer','tradeAct');
+VW.mail=()=>{const L=inbox(),np='Notification' in window?Notification.permission:'none',pt=UI.pt=UI.pt||{},fr=ON.room&&ON.mode=='fight';
+ const others=fr?ON.mem.filter(x=>x.name!=ON.name):[],tid=pt.to?(pt.to==ON.hostName?ON.hm:ON.own2[pt.to]):null;
+ const op=(arr,v)=>'<option value="">-</option>'+arr.map(p=>`<option value="${esc(p.id)}" ${v==p.id?'selected':''}>${esc(nm(p))} (${p.ovr})</option>`).join('');
+ const tp=fr?`<h3>Trade with a player</h3>${others.length?`<div class=bar><select onchange="UI.pt={to:this.value};render()"><option value="">Player...</option>${others.map(x=>`<option ${pt.to==x.name?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select onchange="UI.pt.give=this.value">${op(G.P.filter(p=>p.tid==G.me),pt.give)}</select><select onchange="UI.pt.get=this.value">${op(tid==null?[]:G.P.filter(p=>p.tid==tid),pt.get)}</select><button onclick="viaH('pOffer',[UI.pt.to,UI.pt.give,UI.pt.get])">Send offer</button></div>`:'<p class=dim>No other players in the room yet.</p>'}`:'';
+ return`<h2>Mailbox</h2><div class=bar>${np=='granted'?'<span class=dim>Alerts on</span>':np=='denied'?'<span class=dim>Alerts blocked in browser settings</span>':'<button onclick="askNotif()">Enable alerts</button>'}${L.length?'<button onclick="L_=inbox().forEach(m=>READ.add(m.id));localStorage.setItem(\'pbl_read\',JSON.stringify([...READ].slice(-300)));render()">Mark all read</button>':''}</div>${tp}<div class=mb>${L.length?L.map(m=>`<div class="mi ${READ.has(m.id)?'':'u'}" onclick="openMail('${m.id}')"><small>${esc(m.k)} &middot; Game ${m.rd}${m.o?(m.o.done==1?' &middot; accepted':m.o.done==2?' &middot; declined':''):''}</small><b>${esc(m.h)}</b>${UI.mo==m.id?`<span>${esc(m.b)}</span>${m.o&&!m.o.done?`<div class=bar><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',1])">Accept</button><button onclick="event.stopPropagation();viaH('tradeAct',['${m.id}',0])">Decline</button></div>`:''}`:''}</div>`).join(''):'<p class=dim>No mail yet. News, rumors and trade offers land here as the season moves.</p>'}</div>`};
+const _after=after;after=function(){const r=_after.apply(this,arguments);try{if(G&&G.rd!==G._mr){const T=G.T[G.me],o=G.T[(Math.random()*G.T.length)|0];G._mr=G.rd;
+ if(G.rd&&G.rd%10==0)mail('Week '+G.rd+' report: '+T.n+' sit at '+T.w+'-'+T.l,'League watchers have you at '+T.w+' wins through '+G.rd+' games. '+(T.w>T.l?'Keep the pressure on.':'Time to turn it around.'),'News');
+ if(G.rd==38)mail('Trade deadline approaches','The deadline is close. Front offices are making calls, so check the market before it shuts.','Deadline');
+ else if(G.rd&&G.rd%7==0&&o.id!=G.me)mail('Rumor: '+o.n+' are shopping for talent','Sources say '+o.n+' ('+o.w+'-'+o.l+') are open to moves. Nothing is confirmed.','Rumor')}}catch(e){}return r};
+const _a3=after;after=function(){const r=_a3.apply(this,arguments);try{if(G&&G.rd&&G.rd%9==0&&G._ao!==G.rd&&(!ON.room||ON.host)){G._ao=G.rd;
+ const hum=ON.room&&ON.mode=='fight'?[G.me,...Object.values(ON.own2)]:[G.me],ai=G.T.filter(t=>!hum.includes(t.id));
+ hum.forEach(t=>{const o=ai[(Math.random()*ai.length)|0],mine=G.P.filter(p=>p.tid==t);if(!o||!mine.length)return;const a=mine[(Math.random()*mine.length)|0],c=G.P.filter(p=>p.tid==o.id&&Math.abs(p.ovr-a.ovr)<=4);if(!c.length)return;const b=c[(Math.random()*c.length)|0];
+  mail('Trade offer: '+o.n,o.n+' offer '+nm(b)+' ('+b.ovr+') for '+nm(a)+' ('+a.ovr+').','Offer',t,{from:o.id,give:a.id,get:b.id,hum:0})});if(ON.host&&ON.room)bc()}}catch(e){}return r};
+const _onl=onl;onl=function(){const h=_onl(),sl=n=>{const c=CL[n];return`<button onclick="ldc(${n})">${c?esc(c.meta.team)+' &middot; '+esc(c.meta.season)+' &middot; '+esc(c.meta.rec):'(empty)'}</button>`},
+ x=acct()?`<h3>Saved rooms</h3><p class=dim>Room saves are kept apart from your solo slots. Load one, then create the room.</p><div class=bar>Fight ${sl(4)} Co-op ${sl(5)}</div>`:'',i=h.lastIndexOf('</main>');return i<0?h+x:h.slice(0,i)+x+h.slice(i)};
+
+/* ---------- DRAFT ---------- */
+const drHum=()=>ON.room&&ON.mode=='fight'&&ON.host?[G.me,...Object.values(ON.own2)]:[G.me];
+function startDraft(){const pool=Array.from({length:60},(_,i)=>mkP(I(44,70)+(i<10?I(6,14):i<25?I(2,6):0),I(19,22),0)).sort((a,b)=>(b.ovr*.6+b.pot*.4)-(a.ovr*.6+a.pot*.4));
+ const o=G.T.map(t=>t.id).sort(()=>Math.random()-.5);G.dd={pool,order:[...o,...o],i:0};mail('Draft class ready','60 prospects are in. Open the Draft tab: you hold two picks.','News');drAuto()}
+function drTake(tid,p){const d=G.dd;d.pool=d.pool.filter(x=>x!==p);p.tid=tid;p.yrs=3;G.P.push(p);d.i++}
+function drAuto(){const d=G.dd;if(!d)return;while(d.i<d.order.length&&!drHum().includes(d.order[d.i]))drTake(d.order[d.i],d.pool[0]);
+ if(d.i>=d.order.length){d.pool.slice(0,8).forEach(p=>{p.tid=-1;G.P.push(p)});G.dd=null;mail('Draft complete','The draft is over. Undrafted players are in free agency.','News')}}
+function drPick(pid){const d=G.dd;if(!d)return;if(d.order[d.i]!=G.me)return toast('Not your pick yet');if(mine().length>=15)return toast('Roster full: release a player first');
+ const p=d.pool.find(x=>x.id==pid);if(!p)return;drTake(G.me,p);mail('Drafted '+nm(p),nm(p)+' ('+p.pos+', '+p.ovr+'/'+p.pot+') joins your team.','News');drAuto()}
+WL.push('drPick','drAuto');
+const _ns=nextSeason;nextSeason=function(){const r=_ns.apply(this,arguments);try{if(G&&G.rd===0&&!G.dd&&G.P.length)startDraft()}catch(e){}return r};
+VW.draft=()=>{const d=G.dd;if(!d)return'<h2>Draft</h2><p class=dim>No draft right now. A new class of 60 prospects arrives when the season rolls over.</p>';
+ const my=d.order[d.i]==G.me,left=d.order.slice(d.i).filter(t=>t==G.me).length;
+ return`<h2>Draft</h2><p>Pick ${d.i+1} of ${d.order.length}. On the clock: <b>${esc(G.T[d.order[d.i]].n)}</b>. You hold ${left} more pick${left==1?'':'s'}.</p><div class=w><table><tr><th>Player<th>Pos<th>Age<th>OVR<th>POT<th></tr>${d.pool.slice(0,30).map(p=>`<tr><td>${esc(nm(p))}<td>${p.pos}<td>${p.age}<td>${p.ovr}<td>${p.pot}<td>${my?`<button onclick="viaH('drPick',['${p.id}'])">Draft</button>`:''}</tr>`).join('')}</table></div>`};
+/* ---------- CUSTOM TEAMS (create a team: name, icon, colors, generated OVR) ---------- */
+const TM0=TM.map(t=>[...t]),ICONS=['🏀','🔥','⚡','🐺','🦅','🐻','🌵','🌊','👑','🚀','🛡️','💀','🐍','🦁'];
+const ctList=()=>{try{return JSON.parse(localStorage.getItem('pbl_cteams')||'[]')}catch(e){return[]}},ctSet=L=>localStorage.setItem('pbl_cteams',JSON.stringify(L)),ctLow=()=>TM0.reduce((m,t,i)=>t[1]<TM0[m][1]?i:m,0);
+const ctLogo=t=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='${t.c1}'/><circle cx='32' cy='32' r='25' fill='none' stroke='${t.c2}' stroke-width='4'/><text x='32' y='43' font-size='30' text-anchor='middle'>${t.ic}</text></svg>`);
+function applyCT(){try{TM.forEach((t,i)=>{t[0]=TM0[i][0];t[1]=TM0[i][1]});ASSETS.logos=JSON.parse(localStorage.getItem('pbl_logos')||'{}');ctList().forEach(t=>{if(TM[t.slot]){TM[t.slot][0]=t.n;TM[t.slot][1]=t.ovr;ASSETS.logos[t.slot]=ctLogo(t)}})}catch(e){}}
+function ctCap(){const f=UI.ctf=UI.ctf||{ovr:I(70,84)};['n','ic','c1','c2','slot'].forEach(k=>{const e=$('#cf_'+k);if(e)f[k]=e.value});return f}
+function ctRoll(){ctCap().ovr=I(70,84);render()}
+function ctAdd(){const f=ctCap(),n=(f.n||'').trim().slice(0,22);if(n.length<3)return toast('Give your team a name (3+ letters)');
+ const slot=+(f.slot??ctLow()),L=ctList().filter(t=>t.slot!=slot);L.push({slot,n,ovr:f.ovr,ic:f.ic||ICONS[0],c1:f.c1||'#1d4ed8',c2:f.c2||'#facc15'});ctSet(L);UI.ctf=null;applyCT();render();toast(n+' is ready. Pick it in New Franchise.')}
+function ctDel(slot){ctSet(ctList().filter(t=>t.slot!=slot));applyCT();render()}
+function ctV(){const f=UI.ctf=UI.ctf||{ovr:I(70,84)},L=ctList(),sl=f.slot??ctLow(),c1=f.c1||'#1d4ed8',c2=f.c2||'#facc15',ic=f.ic||ICONS[0];
+ return`<main><h1>Create Team</h1><p class=dim>Pick a name, icon and colors. Your team's OVR is generated for you.</p><div class=bar><input id=cf_n maxlength=22 placeholder="Team name" value="${esc(f.n||'')}"> <select id=cf_ic onchange="ctCap();render()">${ICONS.map(x=>`<option ${ic==x?'selected':''}>${x}</option>`).join('')}</select> <input id=cf_c1 type=color value="${c1}" onchange="ctCap();render()"> <input id=cf_c2 type=color value="${c2}" onchange="ctCap();render()"></div>
+<div class=bar>Replaces <select id=cf_slot>${TM0.map((t,i)=>`<option value=${i} ${sl==i?'selected':''}>${esc(t[0])} (${t[1]})</option>`).join('')}</select></div>
+<div class=bar><img src="${ctLogo({c1,c2,ic})}" width=48 height=48> <b>OVR ${f.ovr}</b> <button onclick="ctRoll()">Reroll OVR</button> <button onclick="ctAdd()">Create team</button></div>
+${L.length?'<h3>Your teams</h3>'+L.map(t=>`<div class=bar><img src="${ctLogo(t)}" width=32 height=32> ${esc(t.n)} <b>${t.ovr}</b> <span class=dim>replaces ${esc(TM0[t.slot][0])}</span> <button onclick="ctDel(${t.slot})">Remove</button></div>`).join(''):''}
+<div class=bar><button onclick="UI.menu='main';render()">Back</button></div></main>`}
+applyCT();
+(function(){const m=/^#k=([A-Za-z0-9_]{3,16})\.([0-9a-f]{8,64})$/.exec(location.hash);if(m){localStorage.setItem('pbl_name',m[1]);localStorage.setItem('pbl_tok_'+m[1].toLowerCase(),m[2]);history.replaceState(null,'',location.pathname)}
+ if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('/sw.js').catch(()=>{})})();
+function copyLink(){const u=acct();if(!u)return;const l=location.origin+'/#k='+u.n+'.'+u.t;(navigator.clipboard?navigator.clipboard.writeText(l):Promise.reject()).then(()=>toast('Sign-in link copied. Keep it private.')).catch(()=>prompt('Your sign-in link:',l))}
+
 render();
 if(acct())refreshSaves();
 </script></body></html>
