@@ -93,7 +93,7 @@ function authU(q,s,n){ // account = X-User name + X-Token (issued at sign-in)
  const ok=u&&t.length===u.tok.length&&crypto.timingSafeEqual(Buffer.from(t),Buffer.from(u.tok));
  if(!ok)return s.status(401).json({error:'auth'});q.k=k;n()}
 const slotOf=q=>{const n=Number(q.params.slot);return Number.isInteger(n)&&n>=1&&n<=6?n:0};
-const lastPut={},jp=express.json({limit:'4mb'});
+const lastPut={},jp=express.json({limit:'12mb'});
 app.get('/api/saves',authU,wrap(async(q,s)=>s.json(await sList(q.k))));
 app.get('/api/saves/:slot',authU,wrap(async(q,s)=>{
  const n=slotOf(q);if(!n)return s.status(400).json({error:'slot'});
